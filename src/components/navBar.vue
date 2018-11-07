@@ -34,7 +34,7 @@ export default {
 .topnav {
     background-color: #333;
     overflow: hidden;
-   padding-top: 40px; 
+    padding-top: 40px; 
     
 }
 

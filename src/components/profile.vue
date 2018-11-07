@@ -1,7 +1,5 @@
 <template>
     <b-container>
-       
-						
         <b-row>
             <div class="col-lg-12">
                 <div class="card hovercard">
@@ -36,7 +34,7 @@
                 <ul>
                     <li v-for="(notification, index) in this.data.notifications" v-bind:notification="notification">
                         {{notification}}
-                         <br>
+                        <br>
                         <b-button id="approve" @click="approveRequest(notification, index)">Approve this request</b-button> 
                     </li>
                 </ul>
@@ -54,8 +52,6 @@
         <b-row>
             <eventdiv v-if="showEvent" v-bind:event="event" v-bind:name="this.data.profileName"></eventdiv>
         </b-row>
-         
-
     </b-container>
 </template>
 

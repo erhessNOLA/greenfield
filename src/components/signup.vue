@@ -67,7 +67,7 @@ export default {
     methods: {
         signUp() {
             this.$http.get('https://tinyfac.es/api/users')
-             .then(function(response) {
+              .then(function(response) {
                 for( var i = 0; i < response.body.length; i++){
                     if(this.signUpForm.gender === response.body[i].gender){
                         this.signUpForm.Image = response.body[i].avatars[1].url;

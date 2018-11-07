@@ -10,11 +10,9 @@ export default {
     data() {
         return {
             copyright: 'Copyright 2017 Buckeyed Seminole'
-           
         }    
     },
     methods: {
-       
     }
 }
 </script>

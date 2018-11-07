@@ -4,7 +4,7 @@
 </template>
 <script>
 window.clickMe = () => {
-   return;
+  return;
 }
 import mapMarkerData from './marker.vue';
 export default {

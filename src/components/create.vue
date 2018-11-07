@@ -25,7 +25,7 @@
     <b-col >
         <recipes v-if="populateList" v-bind:meals="meals" v-bind:populateList="populateList" v-on:hideList="hideList($event)"></recipes>
         <div v-if="showMeal">
-         <p>Your meal: {{showSelection.label}}</p>
+          <p>Your meal: {{showSelection.label}}</p>
         <img v-bind:src="showSelection.image"/>
         </div>
     </b-col>
@@ -79,8 +79,8 @@ export default {
                         q: this.food
                     },
                     headers: {
-                        app_id: 'e4a1bc0f',
-                        app_key: '19aa09f1b7b01b5afa733a72bdef0873',
+                        app_id: 'b9d531b7',
+                        app_key: '4ce2f6ffaefc283787ab3b2c58b95f90',
                     }
                 }
             ).then(function(response) {

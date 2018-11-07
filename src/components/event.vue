@@ -118,8 +118,8 @@ export default {
         this.$http.get('https://api.edamam.com/search?r=http://www.edamam.com/ontologies/edamam.owl%23' + this.event.RecipeID,
             {
                 headers: {
-                    app_id: 'e4a1bc0f',
-                    app_key: '19aa09f1b7b01b5afa733a72bdef0873',
+                    app_id: 'b9d531b7',
+                    app_key: '4ce2f6ffaefc283787ab3b2c58b95f90',
                 }
             }).then(function(response) {
                 this.meal = response.body[0]
