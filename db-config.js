@@ -4,14 +4,7 @@ const passwordHash = require('password-hash');
 const sequelize = new Sequelize('database', 'root', '', {
   host: 'localhost',
   dialect: 'sqlite',
-  dialectOptions: {
-    encrypt: true,
-  },
-  pool: {
-    max: 5,
-    min: 0,
-    idle: 10000,
-  },
+  storage: 'data.sqlite',
 });
 
 sequelize.authenticate()
@@ -103,9 +96,13 @@ const Message = sequelize.define('message', {
   },
 });
 
-sequelize.sync().then(() => {
-  console.log('created');
-});
+sequelize
+  .sync({ force: false })
+  .then((err) => {
+    console.log('It worked!');
+  }, (err) => {
+    console.log('An error occurred while creating the table:', err);
+  });
 
 // TEST DB-MESSAGE CREATION & QUERY
 // Message.sync().then(() => {
@@ -157,7 +154,7 @@ sequelize.sync().then(() => {
 //   const hash = passwordHash.generate('test');
 //   // TEST password-hash
 //   User.findOrCreate({
-//     where: { Email: 'jake@test.com' }, 
+//     where: { Email: 'jake@test.com' },
 //     defaults: {
 //       Name: 'Jake Test',
 //       Host_Rating: 0,
