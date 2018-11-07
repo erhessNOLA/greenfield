@@ -73,15 +73,13 @@ export default {
             })
         },
         lookUp: function() {
-            this.$http.get('https://api.edamam.com/search',
+            this.$http.get('https://api.edamam.com/search?',
                 {
                     params: {
-                        q: this.food
-                    },
-                    headers: {
+                        q: this.food,
                         app_id: 'b9d531b7',
                         app_key: '4ce2f6ffaefc283787ab3b2c58b95f90',
-                    }
+                    },
                 }
             ).then(function(response) {
                 this.populateList = true;
