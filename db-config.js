@@ -1,24 +1,10 @@
 const Sequelize = require('sequelize');
 const passwordHash = require('password-hash');
 
-<<<<<<< Updated upstream
 const sequelize = new Sequelize('database', 'root', '', {
   host: 'localhost',
   dialect: 'sqlite',
   storage: 'data.sqlite',
-=======
-const sequelize = new Sequelize('dinner', 'buckeyedseminole', 'Opspark17', {
-  host: 'localhost:3000',
-  dialect: 'sqlite',
-  dialectOptions: {
-    encrypt: true,
-  },
-  pool: {
-    max: 5,
-    min: 0,
-    idle: 10000,
-  },
->>>>>>> Stashed changes
 });
 
 sequelize.authenticate()
@@ -110,7 +96,6 @@ const Message = sequelize.define('message', {
   },
 });
 
-<<<<<<< Updated upstream
 sequelize
   .sync({ force: false })
   .then((err) => {
@@ -118,11 +103,6 @@ sequelize
   }, (err) => {
     console.log('An error occurred while creating the table:', err);
   });
-=======
-sequelize.sync().then(() => {
-  console.log('created');
-});
->>>>>>> Stashed changes
 
 // TEST DB-MESSAGE CREATION & QUERY
 // Message.sync().then(() => {
