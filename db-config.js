@@ -1,9 +1,9 @@
 const Sequelize = require('sequelize');
 const passwordHash = require('password-hash');
 
-const sequelize = new Sequelize('dinner', 'buckeyedseminole', 'Opspark17', {
-  host: 'whoscomingtodinner.database.windows.net',
-  dialect: 'mssql',
+const sequelize = new Sequelize('database', 'root', '', {
+  host: 'localhost',
+  dialect: 'sqlite',
   dialectOptions: {
     encrypt: true,
   },
@@ -101,6 +101,10 @@ const Message = sequelize.define('message', {
   Event: {
     type: Sequelize.STRING,
   },
+});
+
+sequelize.sync().then(() => {
+  console.log('created');
 });
 
 // TEST DB-MESSAGE CREATION & QUERY

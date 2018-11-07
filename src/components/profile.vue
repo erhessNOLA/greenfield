@@ -26,9 +26,9 @@
                     <span class="title">Current City:</span> {{this.data.profileCity}}</p>
                 <p>
                     <span class="title">Date of birth:</span> {{this.data.birthday}}</p>
-                <!-- <p>
-                    <span class="title">Host Rating:</span> {{this.data.profileHR}}</p>
                 <p>
+                    <span class="title">Host Rating:</span> {{this.data.profileHR}}</p>
+                <!-- <p>
                     <span class="title">Guest Rating:</span> {{this.data.profileCR}}</p> -->
             </b-col>
             <b-col class='profile-buttons'>
