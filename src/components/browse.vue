@@ -3,8 +3,13 @@
     </div>
 </template>
 <script>
+<<<<<<< Updated upstream
 window.clickOne = () => {
     console.log('clicked 1');
+=======
+window.clickMe = () => {
+  return;
+>>>>>>> Stashed changes
 }
 window.clickTwo = () => {
     console.log('clicked 2');

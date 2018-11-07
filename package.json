@@ -9,7 +9,11 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
+<<<<<<< Updated upstream
     "@google/maps": "^0.4.6",
+=======
+    "@google/maps": "^0.4.3",
+>>>>>>> Stashed changes
     "@vue/eslint-config-airbnb": "^4.0.0",
     "body-parser": "^1.18.1",
     "bootstrap": "^3.3.7",
