@@ -32,7 +32,7 @@
             <b-col class='profile-buttons'>
                 <h4>Notifications:</h4>
                 <ul>
-                    <li v-for="(notification, index) in this.data.notifications" v-bind:notification="notification">
+                    <li v-for="(notification, index) in this.data.notifications" v-bind:notification="notification" v-bind:key="index">
                         {{notification}}
                         <br>
                         <b-button id="approve" @click="approveRequest(notification, index)">Approve this request</b-button> 

@@ -1,18 +1,14 @@
 <template>
     <div>
-        
         <b-nav class="topnav" id="myTopnav">
-            
     <h4>PotLucky</h4>
-    
-
             <router-link to="/">Home</router-link>
             <router-link to="/profile">Profile</router-link>
             <router-link to="/login">Login/signup</router-link>
             <router-link to="/browse">Browse</router-link>
             <router-link to="/create">Create</router-link>
+            <router-link to="/discover">Discover</router-link>
         </b-nav>
-
     </div>
 </template>
 
@@ -21,11 +17,9 @@
 export default {
     data() {
         return {
-
         }
     },
     methods: {
-
     }
 }
 </script>
@@ -35,7 +29,6 @@ export default {
     background-color: #333;
     overflow: hidden;
     padding-top: 40px; 
-    
 }
 
 /* Style the links inside the navigation bar */
