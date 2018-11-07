@@ -387,6 +387,10 @@ app.post('/approve', (req, res) => {
     });
 });
 
+app.post('/giveStar', (req, res) => {
+  console.log('worked');
+});
+
 const port = process.env.PORT || 3000;
 
 const server = app.listen(port, () => {
