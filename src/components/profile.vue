@@ -239,6 +239,7 @@ export default {
 
 .btn-pref .btn {
     -webkit-border-radius: 0 !important;
+    border-radius: 0 !important;
 }
 
 
