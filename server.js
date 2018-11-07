@@ -24,7 +24,7 @@ const JsonStrategy = require('passport-json').Strategy;
 const LocalStrategy = require('passport-local').Strategy;
 // google maps requirement
 const googleMapsClient = require('@google/maps').createClient({
-  key: process.env.GOOGLE_MAPS_API_KEY,
+  key: 'AIzaSyBJD85FTteN9V7H01EB8kqPCLzZgQgJF1Q',
 });
 // socket requirement
 const socket = require('socket.io');
@@ -387,7 +387,7 @@ app.post('/approve', (req, res) => {
     });
 });
 
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 
 const server = app.listen(port, () => {
   console.log(`app listening on port ${port}`);
