@@ -63,11 +63,11 @@ import mapMarkerData from './marker.vue';
 
 export default {
   name: 'google-map',
-  props: ['event', 'name'],
   components: {
     chat,
     mapMarkerData,
   },
+  props: ['event', 'name'],
   data() {
     return {
       meal: '',
@@ -83,7 +83,7 @@ export default {
       data: {
         name: 'test Page'
       }
-    }
+    };
   },
   mounted() {
     this.bounds = new google.maps.LatLngBounds();

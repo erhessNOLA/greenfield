@@ -134,16 +134,21 @@ app.get('/', (req, res) => {
 
 // Data for Eventbrite
 const getEvent = (location, callback) => {
-  axios.get(`https://www.eventbriteapi.com/v3/events/search/?location.address=${location}&location.within=25km&token=PAC76UQSEK725KLYGSC4`)
-    .then((response) => { console.log(response.events); })
+  axios.get(`https://www.eventbriteapi.com/v3/events/search/?sort_by=best&location.address=${location}&location.within=25km&categories=110&token=PAC76UQSEK725KLYGSC4`)
+    .then((response) => { console.log(response.data.events); })
     .catch((err) => { console.log(err); });
 };
 
 app.post('/discover', (req, res) => {
-  // console.log(req, 'request***********************');
-  // console.log(res, 'response**********************');
-  const locate = 'chicago';
-  getEvent(locate, () => {});
+  User.findOne({
+    where: {
+      id: req.user.dataValues.id
+    },
+  })
+    .then((user) => {
+      getEvent(user.City, () => {});
+      res.status(200).send(user.City);
+    });
 });
 
 // Data for Map
