@@ -1,9 +1,9 @@
 <template>
-  <ul>
-    <li>
-      IS THIS HERE
-    </li>
-  </ul>
+  <div slot="header" slot-scope="{ headerProps }" :header-props="headerProps" 
+      @input="setMyShowDate" >
+      
+  <!-- <button>HELLO</button> -->
+  </div>
 </template>
 
 <script>

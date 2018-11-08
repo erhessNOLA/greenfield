@@ -1,10 +1,8 @@
 <template>
   <div id="calendar">
-		<h1>Potlucks Calendar</h1>
-    <calendar-view :show-date="myShowDate">
-	    <calendar-view-header slot="header" slot-scope="{ headerProps }" :header-props="headerProps" 
-      <!-- @input="setMyShowDate"  -->
-      />
+		<h1>Potluck Calendar</h1>
+    <calendar-view>
+	    <calendar-view-header/>
     </calendar-view>
 	</div>
 </template>
@@ -17,7 +15,7 @@ import { CalendarView, CalendarViewHeader } from "vue-simple-calendar"
 	// require("vue-simple-calendar/static/css/holidays-us.css")
 
 	export default {
-		name: 'calendar',
+		name: 'app',
 		data: function() {
 			return { showDate: new Date() }
 		},
