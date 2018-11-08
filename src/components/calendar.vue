@@ -15,7 +15,6 @@
 				:starting-day-of-week="startingDayOfWeek"
 				:class="themeClasses"
 				:period-changed-callback="periodChanged"
-				@drop-on-date="onDrop"
 				@click-event="onClickEvent"
 			>
 				<calendar-view-header slot="header" slot-scope="t" :header-props="t.headerProps" @input="setShowDate" />
@@ -41,7 +40,7 @@ import CalendarMathMixin from "../../vue-simple-calendar/src/components/Calendar
 require("../../vue-simple-calendar/static/css/default.css")
 require("../../vue-simple-calendar/static/css/holidays-us.css")
 */
-
+import axios from 'axios';
 export default {
 	name: "App",
 	components: {
@@ -69,79 +68,7 @@ export default {
 			newEventEndDate: "",
 			useDefaultTheme: true,
 			useHolidayTheme: true,
-			events: [
-				{
-					id: "e0",
-					startDate: "2018-01-05",
-				},
-				{
-					id: "e1",
-					startDate: this.thisMonth(15, 18, 30),
-				},
-				{
-					id: "e2",
-					startDate: this.thisMonth(15),
-					title: "Single-day event with a long title",
-				},
-				{
-					id: "e3",
-					startDate: this.thisMonth(7, 9, 25),
-					endDate: this.thisMonth(10, 16, 30),
-					title: "Multi-day event with a long title and times",
-				},
-				{
-					id: "e4",
-					startDate: this.thisMonth(20),
-					title: "My Birthday!",
-					classes: "birthday",
-					url: "https://en.wikipedia.org/wiki/Birthday",
-				},
-				{
-					id: "e5",
-					startDate: this.thisMonth(5),
-					endDate: this.thisMonth(12),
-					title: "Multi-day event",
-					classes: "purple",
-				},
-				{
-					id: "foo",
-					startDate: this.thisMonth(29),
-					title: "Same day 1",
-				},
-				{
-					id: "e6",
-					startDate: this.thisMonth(29),
-					title: "Same day 2",
-					classes: "orange",
-				},
-				{
-					id: "e7",
-					startDate: this.thisMonth(29),
-					title: "Same day 3",
-				},
-				{
-					id: "e8",
-					startDate: this.thisMonth(29),
-					title: "Same day 4",
-					classes: "orange",
-				},
-				{
-					id: "e9",
-					startDate: this.thisMonth(29),
-					title: "Same day 5",
-				},
-				{
-					id: "e10",
-					startDate: this.thisMonth(29),
-					title: "Same day 6",
-					classes: "orange",
-				},
-				{
-					id: "e11",
-					startDate: this.thisMonth(29),
-					title: "Same day 7",
-				},
-			],
+			events: this.getEvents(),
 		}
 	},
 	computed: {
@@ -165,6 +92,18 @@ export default {
 	},
 
 	methods: {
+    getEvents() {
+      return axios.get('/events').then((eventList) => {
+        return eventList.data.map((event, i) => {
+        let newObj = {};
+          newObj.id = eventList.data[i].id;
+          newObj.startDate = eventList.data[i].Date;
+          newObj.title = eventList.data[i].Name;
+          newObj.host = eventList.data[i].Host;
+          return newObj;
+        })
+      })
+    },
 		periodChanged(range, eventSource) {
 			// Demo does nothing with this information, just including the method to demonstrate how
 			// you can listen for changes to the displayed range and react to them (by loading events, etc.)
@@ -181,22 +120,6 @@ export default {
 		setShowDate(d) {
 			this.message = `Changing calendar view to ${d.toLocaleDateString()}`
 			this.showDate = d
-		},
-		onDrop(event, date) {
-			this.message = `You dropped ${event.id} on ${date.toLocaleDateString()}`
-			// Determine the delta between the old start date and the date chosen,
-			// and apply that delta to both the start and end date to move the event.
-			const eLength = this.dayDiff(event.startDate, date)
-			event.originalEvent.startDate = this.addDays(event.startDate, eLength)
-			event.originalEvent.endDate = this.addDays(event.endDate, eLength)
-		},
-		clickTestAddEvent() {
-			this.events.push({
-				startDate: this.newEventStartDate,
-				endDate: this.newEventEndDate,
-				title: this.newEventTitle,
-			})
-			this.message = "You added an event!"
 		},
 	},
 }
