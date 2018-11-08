@@ -11,6 +11,8 @@
             <router-link to="/login">Login/signup</router-link>
             <router-link to="/browse">Browse</router-link>
             <router-link to="/create">Create</router-link>
+            <router-link to="/calendar">Calendar</router-link>
+
         </b-nav>
 
     </div>
