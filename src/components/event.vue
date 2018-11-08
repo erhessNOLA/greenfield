@@ -85,17 +85,17 @@ export default {
       }
     }
   },
-  mounted: function() {
+  mounted() {
     this.bounds = new google.maps.LatLngBounds();
-    const element = document.getElementById(this.mapName)
-    const mapCentre = this.markerCoordinates[0]
+    const element = document.getElementById(this.mapName);
+    const mapCentre = this.markerCoordinates[0];
     const options = {
       center: new google.maps.LatLng(mapCentre.latitude, mapCentre.longitude),
       maxZoom: 16,
     };
     this.map = new google.maps.Map(element, options);
     this.markerCoordinates.forEach((coord) => {
-      console.log(coord)
+      console.log(coord);
       const position = new google.maps.LatLng(coord.latitude, coord.longitude);
 
       const contentString =
@@ -108,7 +108,6 @@ export default {
       const infowindow = new google.maps.InfoWindow({
         content: contentString
       });
-
 
       const marker = new google.maps.Marker({
         position,

@@ -1,5 +1,6 @@
 require('dotenv').config();
 const path = require('path');
+const axios = require('axios');
 // express requirements
 const express = require('express');
 const expressVue = require('express-vue');
@@ -129,6 +130,20 @@ app.use(passport.session());
 app.get('/', (req, res) => {
   // console.log('sent with app.get');
   res.sendFile(path.join(__dirname, '/index.html'));
+});
+
+// Data for Eventbrite
+const getEvent = (location, callback) => {
+  axios.get(`https://www.eventbriteapi.com/v3/events/search/?location.address=${location}&location.within=25km&token=PAC76UQSEK725KLYGSC4`)
+    .then((response) => { console.log(response.events); })
+    .catch((err) => { console.log(err); });
+};
+
+app.post('/discover', (req, res) => {
+  // console.log(req, 'request***********************');
+  // console.log(res, 'response**********************');
+  const locate = 'chicago';
+  getEvent(locate, () => {});
 });
 
 // Data for Map

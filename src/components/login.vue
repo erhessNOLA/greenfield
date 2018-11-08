@@ -36,7 +36,7 @@ export default {
     };
   },
   methods: {
-    login: function() {
+    login() {
       this.$http.post('/login', {
         email: this.loginData.email,
         password: this.loginData.password
