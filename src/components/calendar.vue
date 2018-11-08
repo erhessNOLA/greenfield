@@ -7,8 +7,6 @@
 				:show-date="showDate"
 				:time-format-options="{hour: 'numeric', minute:'2-digit'}"
 				:enable-drag-drop="true"
-				:disable-past="disablePast"
-				:disable-future="disableFuture"
 				:show-event-times="showEventTimes"
 				:display-period-uom="displayPeriodUom"
 				:display-period-count="displayPeriodCount"
@@ -65,9 +63,6 @@ export default {
 			showEventTimes: true,
 			newEventTitle: "",
 			newEventStartDate: "",
-			newEventEndDate: "",
-			useDefaultTheme: true,
-			useHolidayTheme: true,
 			events: this.getEvents(),
 		}
 	},
@@ -93,15 +88,18 @@ export default {
 
 	methods: {
     getEvents() {
-      return axios.get('/events').then((eventList) => {
-        return eventList.data.map((event, i) => {
-        let newObj = {};
-          newObj.id = eventList.data[i].id;
+      axios.get('/events').then((eventList) => {
+        console.log(eventList.data, 'THIS IS THE EVENT LIST');
+        let mappedList = eventList.data.map((event, i) => {
+          let newObj = {};
+          newObj.id = `e${eventList.data[i].id}`;
           newObj.startDate = eventList.data[i].Date;
           newObj.title = eventList.data[i].Name;
-          newObj.host = eventList.data[i].Host;
-          return newObj;
-        })
+          // newObj.host = eventList.data[i].Host;
+          return (newObj);
+        });
+        console.log(mappedList, 'mappedList');
+        this.events = mappedList;
       })
     },
 		periodChanged(range, eventSource) {
