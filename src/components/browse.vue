@@ -78,7 +78,7 @@ export default {
                       ); 
 
                       window.clickOne = () => {
-                         axios.post('/giveStar', {
+                        axios.post('/giveStar', {
                           stars: 1,
                           eventName: marker.event.Name,
                           hostName: marker.event.Host
@@ -89,6 +89,7 @@ export default {
                         .catch(function (error) {
                           console.log(error);
                         });
+                        alert(`You gave ${marker.event.Name} 1 Star`); 
                       }; 
 
                       window.clickTwo = () => {
@@ -103,6 +104,7 @@ export default {
                         .catch(function (error) {
                           console.log(error);
                         });
+                        alert(`You gave ${marker.event.Name} 2 Stars`);
                       }; 
 
                       window.clickThree = () => {
@@ -117,6 +119,7 @@ export default {
                         .catch(function (error) {
                           console.log(error);
                         });
+                        alert(`You gave ${marker.event.Name} 3 Stars`);
                       }; 
 
                       window.clickFour = () => {
@@ -131,6 +134,7 @@ export default {
                         .catch(function (error) {
                           console.log(error);
                         });
+                        alert(`You gave ${marker.event.Name} 4 Stars`);
                       }; 
 
                       window.clickFive = () => {
@@ -145,6 +149,7 @@ export default {
                         .catch(function (error) {
                           console.log(error);
                         });
+                        alert(`You gave ${marker.event.Name} 5 Stars`);
                       }; 
 
                       infowindow.open(this.map, marker); 
