@@ -27,9 +27,9 @@
                 <p>
                     <span class="title">Date of birth:</span> {{this.data.birthday}}</p>
                 <p>
-                    <span class="title">Star Count:</span> {{this.data.profileHR}}</p>
-                <!-- <p>
-                    <span class="title">Guest Rating:</span> {{this.data.profileCR}}</p> -->
+                    <span class="title">Average Stars:</span> {{this.data.profileHR}}</p>
+                <p>
+                    <span class="title">Total Events:</span> {{this.data.profileEC}}</p>
             </b-col>
             <b-col class='profile-buttons'>
                 <h4>Notifications:</h4>
@@ -60,31 +60,79 @@
 </template>
 
 <script>
+/* eslint no-console: "off" */
 // Imports
-import eventdiv from './event.vue'
+import eventdiv from './event.vue';
+
 export default {
-    components: {
-        eventdiv: eventdiv,
-    },
-    data() {
-        return {
-            event: '',
-            showEvent: false,
-            data: {
-                profileName: '',
-                profileCity: '',
-                profileEmail: '',
-                profileHR: '',
-                profileCR: '',
-                birthday: '',
-                notifications: '',
-                notificationData: [],
-                events: [],
-                image: '',
-            }
-
-
+  components: {
+    eventdiv,
+  },
+  data() {
+    return {
+      event: '',
+      showEvent: false,
+      data: {
+        profileName: '',
+        profileCity: '',
+        profileEmail: '',
+        profileHR: '',
+        profileCR: '',
+        birthday: '',
+        notifications: '',
+        notificationData: [],
+        events: [],
+        image: '',
+      },
+    };
+  },
+  mounted() {
+    this.$http.get('/profile')
+      .then((response) => {
+        console.log(response.body);
+        this.data.profileName = response.body.Name;
+        this.data.profileCity = response.body.City;
+        this.data.profileEmail = response.body.Email;
+        this.data.profileHR = response.body.hostRating;
+        this.data.profileCR = response.body.contributorRating;
+        this.data.birthday = response.body.Birthday;
+        this.data.image = response.body.Image || 'http://media.istockphoto.com/photos/businessman-silhouette-as-avatar-or-default-profile-picture-picture-id476085198?k=6&m=476085198&s=612x612&w=0&h=5cDQxXHFzgyz8qYeBQu2gCZq1_TN0z40e_8ayzne0X0=';
+      }, (err) => {
+        this.$router.push('/login');
+        console.log(err);
+      });
+    this.$http.get('/userevents')
+      .then((response) => {
+        this.data.events = response.body;
+      }, (err) => {
+        this.$router.push('/login');
+        console.log(err);
+      });
+    this.$http.get('/notifications')
+      .then((response) => {
+        if (!response.body.length) {
+          return;
         }
+        console.log(response.body);
+        const notificationDataPairs = [];
+        const notifications = response.body;
+        const formattedNotifications = [];
+        notifications.forEach((notification) => {
+          if (notification !== '') {
+            const split = notification.split(':');
+            notificationDataPairs.push(split);
+            formattedNotifications.push(`${split[1]} wants to join your ${split[0]} party!`);
+          }
+        });
+        this.data.notificationData = notificationDataPairs;
+        console.log(formattedNotifications);
+        this.data.notifications = formattedNotifications.length ? formattedNotifications : [];
+      });
+  },
+  methods: {
+    sEvent(clickedEvent) {
+      this.event = clickedEvent;
+      this.showEvent = !this.showEvent;
     },
     mounted: function() {
         this.$http.get('/profile')
@@ -97,6 +145,7 @@ export default {
                 this.data.profileCR = response.body.contributorRating;
                 this.data.birthday = response.body.Birthday;
                 this.data.image = response.body.Image || "http://media.istockphoto.com/photos/businessman-silhouette-as-avatar-or-default-profile-picture-picture-id476085198?k=6&m=476085198&s=612x612&w=0&h=5cDQxXHFzgyz8qYeBQu2gCZq1_TN0z40e_8ayzne0X0=";
+                this.data.profileEC = response.body.eventCount;
             }, (err) => {
                 this.$router.push('/login');
             });
@@ -128,28 +177,8 @@ export default {
                 this.data.notifications = formattedNotifications.length ? formattedNotifications : [];
             })
     },
-    methods: {
-        sEvent(clickedEvent) {
-            this.event = clickedEvent
-            this.showEvent = !this.showEvent;
-        },
-        approveRequest(notification, index) {
-            console.log('approve:', this.data.notificationData[index]);
-            const data = this.data.notificationData[index];
-            this.$http.post('/approve', {
-                eventName: data[0],
-                approvedUser: data[1],
-            }).then((response) => {
-                this.data.notifications.splice(index, 1);
-                this.data.notificationData.splice(index, 1);
-            }).catch((err) => {
-                console.log('error approving request');
-            })
-
-        }
-
-    }
-}
+  },
+};
 </script>
 
 <style scoped>
@@ -243,10 +272,8 @@ export default {
 
 .btn-pref .btn {
     -webkit-border-radius: 0 !important;
+    border-radius: 0 !important;
 }
-
-
-
 
 /* body {
     margin-top: 20px;
