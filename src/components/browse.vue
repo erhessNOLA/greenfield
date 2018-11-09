@@ -7,63 +7,6 @@ import chat from './chatBox.vue';
 import mapMarkerData from './marker.vue';
 import axios from 'axios';
 
-// window.clickOne = (hostName) => {
-//   console.log(hostName);
-//   //  axios.post('/giveStar', {
-//   //   stars: 1,
-//   // })
-//   // .then(function (response) {
-//   //   console.log(response);
-//   // })
-//   // .catch(function (error) {
-//   //   console.log(error);
-//   // });
-// }
-window.clickTwo = () => {
-   axios.post('/giveStar', {
-    stars: 2,
-  })
-  .then(function (response) {
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-}
-window.clickThree = () => {
-   axios.post('/giveStar', {
-    stars: 3,
-  })
-  .then(function (response) {
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-}
-window.clickFour = () => {
-   axios.post('/giveStar', {
-    stars: 4,
-  })
-  .then(function (response) {
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-}
-window.clickFive = () => {
-   axios.post('/giveStar', {
-    stars: 5,
-  })
-  .then(function (response) {
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-}
-
 export default {
     components: {
         chat: chat,
@@ -108,18 +51,6 @@ export default {
                 });
                 arr.forEach((coord) => {
                     const position = new google.maps.LatLng(coord.latitude, coord.longitude);
-                    // var contentString = 
-                    // '<div>' +
-                    //   '<h2>' + `${coord.event.Name}` + '</h2>' +
-                    //   '<p>' + 'Host: ' + `${coord.event.Host}` + '</p>' +
-                    //   '<p>' + 'Stars: ' + `${coord.event.Rating}` + '</p>' +
-                    //   '<p>' + 'Address: ' + `${coord.event.Address}` + '</p>' +
-                    //   '<button onclick="window.clickOne(`${coord.event.Host}`)">Give 1 Star</button>' + 
-                    //   '<button onclick="window.clickTwo()">Give 2 Stars</button>' +
-                    //   '<button onclick="window.clickThree()">Give 3 Stars</button>' +
-                    //   '<button onclick="window.clickFour()">Give 4 Stars</button>' +
-                    //   '<button onclick="window.clickFive()">Give 5 Stars</button>' +
-                    // '</div>';
 
                     var infowindow = new google.maps.InfoWindow({
                         content: " "
@@ -136,7 +67,7 @@ export default {
                       '<div>' +
                         '<h2>' + `${coord.event.Name}` + '</h2>' +
                         '<p>' + ' Host: ' + `${coord.event.Host}` + '</p>' +
-                        '<p id="test">' + ' Stars: ' + `${coord.event.Rating}` + '</p>' +
+                        '<p>' + ' Stars: ' + `${coord.event.Rating}` + '</p>' +
                         '<p>' + 'Address: ' + `${coord.event.Address}` + '</p>' +
                         '<button onclick="window.clickOne()">Give 1 Star</button>' + 
                         '<button onclick="window.clickTwo()">Give 2 Stars</button>' +
@@ -146,19 +77,73 @@ export default {
                       '</div>'
                       ); 
 
-                      infowindow.open(this.map, marker); 
                       window.clickOne = () => {
-                        console.log(marker.event.Host);
-                        //  axios.post('/giveStar', {
-                        //   stars: 1,
-                        // })
-                        // .then(function (response) {
-                        //   console.log(response);
-                        // })
-                        // .catch(function (error) {
-                        //   console.log(error);
-                        // });
-                      }
+                         axios.post('/giveStar', {
+                          stars: 1,
+                          eventName: marker.event.Name
+                        })
+                        .then(function (response) {
+                          console.log(response);
+                        })
+                        .catch(function (error) {
+                          console.log(error);
+                        });
+                      }; 
+
+                      window.clickTwo = () => {
+                         axios.post('/giveStar', {
+                          stars: 2,
+                          eventName: marker.event.Name
+                        })
+                        .then(function (response) {
+                          console.log(response);
+                        })
+                        .catch(function (error) {
+                          console.log(error);
+                        });
+                      }; 
+
+                      window.clickThree = () => {
+                         axios.post('/giveStar', {
+                          stars: 3,
+                          eventName: marker.event.Name
+                        })
+                        .then(function (response) {
+                          console.log(response);
+                        })
+                        .catch(function (error) {
+                          console.log(error);
+                        });
+                      }; 
+
+                      window.clickFour = () => {
+                         axios.post('/giveStar', {
+                          stars: 4,
+                          eventName: marker.event.Name
+                        })
+                        .then(function (response) {
+                          console.log(response);
+                        })
+                        .catch(function (error) {
+                          console.log(error);
+                        });
+                      }; 
+
+                      window.clickFive = () => {
+                         axios.post('/giveStar', {
+                          stars: 5,
+                          eventName: marker.event.Name
+                        })
+                        .then(function (response) {
+                          console.log(response);
+                        })
+                        .catch(function (error) {
+                          console.log(error);
+                        });
+                      }; 
+
+                      infowindow.open(this.map, marker); 
+
                     });
                     this.markers.push(marker)
                     this.map.fitBounds(this.bounds.extend(position))

@@ -151,6 +151,13 @@ app.get('/profile', (req, res) => {
   passport.authenticate('local');
   if (req.user) {
     // find user information from DB
+    // Event.findAll({ where: { Host: req.user.dataValues.Name } }).then((events) => {
+    //   // console.log('eventzero', events[0].dataValues);
+    //   for (let i = 0; i < events.length; i += 1) {
+    //     let eventObj = events[i].dataValues;
+    //     console.log('hello?', eventObj);
+    //   }
+    // });
     User.findOne({ where: { id: req.user.dataValues.id } })
       .then((user) => {
         // avoid sending password
@@ -164,6 +171,7 @@ app.get('/profile', (req, res) => {
           memberSince: user.createdAt,
           Birthday: user.Birthday,
           Image: user.Image || null,
+          eventCount: user.Event_Count,
         };
         res.status(200).send(dataToSend);
       });
@@ -186,7 +194,8 @@ app.post('/signup', (req, res) => {
       City: req.body.city,
       Password: hash,
       Birthday: req.body.dob,
-      Image: req.body.Image || null,
+      Image: null,
+      Event_Count: 0,
     },
   })
     .spread((user, created) => {
@@ -215,6 +224,7 @@ app.post('/create', (req, res) => {
     location, name, meal, time, date,
   } = req.body;
   User.findOne({ where: { id: parseInt(req.cookies.user) } }).then((user) => {
+    user.increment('Event_Count', { by: 1 });
     host = user.Name;
     // Calculate Latitude and Longitude, City, Zip from this address
     googleMapsClient.geocode({
@@ -241,6 +251,7 @@ app.post('/create', (req, res) => {
           Date: date,
           Time: time,
           Host: host,
+          Rating: 0,
         }).then(() => {
           // send back created event if needed
           Event.find({ where: { Name: name } }).then((event) => {
@@ -388,13 +399,9 @@ app.post('/approve', (req, res) => {
 });
 
 app.post('/giveStar', (req, res) => {
-  console.log('request', req);
-  // const { stars } = req.body;
-  // const { Name } = req.user.dataValues;
-  // Event.update({ Rating: stars }, { where: { Host: Name } }).then((response) => {
-  //   console.log(`${response} updated`);
-  //   res.end();
-  // });
+  const { stars } = req.body;
+  const { eventName } = req.body;
+  Event.findOne({ where: { Name: eventName } }).then(event => event.increment('Rating', { by: stars }));
 });
 
 const port = process.env.PORT || 3000;
