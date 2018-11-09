@@ -1,5 +1,6 @@
 require('dotenv').config();
 const path = require('path');
+const axios = require('axios');
 // express requirements
 const express = require('express');
 const expressVue = require('express-vue');
@@ -129,6 +130,21 @@ app.use(passport.session());
 app.get('/', (req, res) => {
   // console.log('sent with app.get');
   res.sendFile(path.join(__dirname, '/index.html'));
+});
+
+app.get('/discover', (req, res) => {
+  // find user data via id in req header cookie
+  User.findOne({
+    where: {
+      id: req.headers.cookie.slice(5, 6),
+    },
+  })
+    .then(user => axios.get(`https://www.eventbriteapi.com/v3/events/search/?sort_by=date&location.address=${user.City}&location.within=25km&categories=110&token=PAC76UQSEK725KLYGSC4`)
+      .then((response) => {
+        const e = response.data.events;
+        res.send(e);
+      })
+      .catch((err) => { console.log(err); }));
 });
 
 // Data for Map
