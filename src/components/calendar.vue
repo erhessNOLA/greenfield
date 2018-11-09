@@ -12,7 +12,6 @@
 				:display-period-count="displayPeriodCount"
 				:starting-day-of-week="startingDayOfWeek"
 				:class="themeClasses"
-				:period-changed-callback="periodChanged"
 				@click-event="onClickEvent"
 			>
 				<calendar-view-header slot="header" slot-scope="t" :header-props="t.headerProps" @input="setShowDate" />
@@ -27,8 +26,6 @@ import {
 	CalendarViewHeader,
 	CalendarMathMixin,
 } from "vue-simple-calendar"
-// require("vue-simple-calendar/static/css/default.css")
-// require("vue-simple-calendar/static/css/holidays-us.css")
 
 // For live testing while making changes to the component, assumes repo pulled to sister folder
 /*
@@ -51,7 +48,7 @@ export default {
       /* Show the current month, and give it some fake events to show */
       t: {
         headerProps: {
-          
+          periodLabel: this.monthNames(new Date().getMonth()) + ' ' + new Date().getFullYear(),
         },
       },
 			showDate: this.thisMonth(1),
@@ -87,6 +84,10 @@ export default {
 	},
 
 	methods: {
+    monthNames (num) {
+      let names = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      return names[num];
+    },
     getEvents() {
       axios.get('/events').then((eventList) => {
         console.log(eventList.data, 'THIS IS THE EVENT LIST');
@@ -102,14 +103,8 @@ export default {
         this.events = mappedList;
       })
     },
-		periodChanged(range, eventSource) {
-			// Demo does nothing with this information, just including the method to demonstrate how
-			// you can listen for changes to the displayed range and react to them (by loading events, etc.)
-			console.log(eventSource)
-			console.log(range)
-		},
 		thisMonth(d, h, m) {
-			const t = new Date()
+      const t = new Date()
 			return new Date(t.getFullYear(), t.getMonth(), d, h || 0, m || 0)
 		},
 		onClickEvent(e) {
@@ -163,13 +158,6 @@ body {
 /* These styles are optional, to illustrate the flexbility of styling the calendar purely with CSS. */
 
 /* Add some styling for events tagged with the "birthday" class */
-.calendar .event.birthday {
-	background-color: #e0f0e0;
-	border-color: #d7e7d7;
-}
 
-.calendar .event.birthday::before {
-	content: "\1F382";
-	margin-right: 0.5em;
-}
+
 </style>
