@@ -132,23 +132,19 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/index.html'));
 });
 
-// Data for Eventbrite
-const getEvent = (location, callback) => {
-  axios.get(`https://www.eventbriteapi.com/v3/events/search/?sort_by=best&location.address=${location}&location.within=25km&categories=110&token=PAC76UQSEK725KLYGSC4`)
-    .then((response) => { console.log(response.data.events); })
-    .catch((err) => { console.log(err); });
-};
-
-app.post('/discover', (req, res) => {
+app.get('/discover', (req, res) => {
+  // find user data via id in req header cookie
   User.findOne({
     where: {
-      id: req.user.dataValues.id
+      id: req.headers.cookie.slice(5, 6),
     },
   })
-    .then((user) => {
-      getEvent(user.City, () => {});
-      res.status(200).send(user.City);
-    });
+    .then(user => axios.get(`https://www.eventbriteapi.com/v3/events/search/?sort_by=best&location.address=${user.City}&location.within=25km&categories=110&token=PAC76UQSEK725KLYGSC4`)
+      .then((response) => {
+        const e = response.data.events;
+        res.send(e);
+      })
+      .catch((err) => { console.log(err); }));
 });
 
 // Data for Map

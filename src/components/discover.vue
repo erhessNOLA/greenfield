@@ -9,8 +9,8 @@
             data-parent="#card-317479"
             href="#card-element-356590"
           >
-            <!-- <h4>{{ event.name.text }}</h4>
-            {{ ' start time:' + event.start.local + ' end time:' + event.end.local }} -->
+            <h4>{{ events[0].discoverName }}</h4>
+            <!-- {{ ' start time:' + event.start.local + ' end time:' + event.end.local }} -->
           </a>
         </div>
         <div
@@ -47,12 +47,29 @@
 </template>
 
 <script>
+const events = [];
 export default {
-  // props: ['event'],
+  // props: ['events'],
   computed: {
   },
-  methods: {
-  },
+  mounted() {
+    this.$http.get('/discover')
+      .then((response) => {
+        response.body.forEach((element, i) => {
+          const eventObj = {
+            discoverName: response.body[i].name.text,
+            discoverDescript: response.body[i].description.text,
+            discoverUrl: response.body[i].url,
+            discoverTime: response.body[i].start.local,
+            discoverLogo: response.body[i].logo.url,
+          };
+          events.push(eventObj);
+        });
+      }, (err) => {
+        console.log(err, 'error');
+      });
+  }
 };
+
 </script>
 
