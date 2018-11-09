@@ -1,23 +1,4 @@
 <template>
-<<<<<<< HEAD
-    <div>
-        
-        <b-nav class="topnav" id="myTopnav">
-            
-    <h4>PotLucky</h4>
-    
-
-            <router-link to="/">Home</router-link>
-            <router-link to="/profile">Profile</router-link>
-            <router-link to="/login">Login/signup</router-link>
-            <router-link to="/browse">Browse</router-link>
-            <router-link to="/create">Create</router-link>
-            <router-link to="/calendar">Calendar</router-link>
-
-        </b-nav>
-
-    </div>
-=======
   <div>
     <b-nav
       id="myTopnav"
@@ -32,7 +13,6 @@
       <router-link to="/discover">Discover</router-link>
     </b-nav>
   </div>
->>>>>>> b1911da30b5587a9a910caa9313797c184521e16
 </template>
 
 <script>
