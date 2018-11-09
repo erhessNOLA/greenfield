@@ -151,7 +151,7 @@ export default {
             this.signUpForm.email = '';
           });
         });
-    }
+    },
   },
 };
 </script>
@@ -159,8 +159,8 @@ export default {
 
 <style scoped>
 .body {
-    background: url(../assets/Walkthrough_03@3x.png);
-    background-repeat: no-repeat;
-    background-size: cover;
+  background: url(../assets/Walkthrough_03@3x.png);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 </style>

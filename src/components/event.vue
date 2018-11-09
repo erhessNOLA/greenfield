@@ -63,11 +63,11 @@ import mapMarkerData from './marker.vue';
 
 export default {
   name: 'google-map',
-  props: ['event', 'name'],
   components: {
     chat,
     mapMarkerData,
   },
+  props: ['event', 'name'],
   data() {
     return {
       meal: '',
@@ -81,21 +81,21 @@ export default {
       markers: [],
       showModal: false,
       data: {
-        name: 'test Page'
-      }
-    }
+        name: 'test Page',
+      },
+    };
   },
-  mounted: function() {
+  mounted() {
     this.bounds = new google.maps.LatLngBounds();
-    const element = document.getElementById(this.mapName)
-    const mapCentre = this.markerCoordinates[0]
+    const element = document.getElementById(this.mapName);
+    const mapCentre = this.markerCoordinates[0];
     const options = {
       center: new google.maps.LatLng(mapCentre.latitude, mapCentre.longitude),
       maxZoom: 16,
     };
     this.map = new google.maps.Map(element, options);
     this.markerCoordinates.forEach((coord) => {
-      console.log(coord)
+      console.log(coord);
       const position = new google.maps.LatLng(coord.latitude, coord.longitude);
 
       const contentString =
@@ -106,14 +106,13 @@ export default {
         '</div>';
 
       const infowindow = new google.maps.InfoWindow({
-        content: contentString
+        content: contentString,
       });
-
 
       const marker = new google.maps.Marker({
         position,
         map: this.map,
-        title: this.event.name
+        title: this.event.name,
       });
       marker.addListener('click', () => {
         infowindow.open(this.map, marker);
@@ -130,14 +129,14 @@ export default {
           app_id: 'b9d531b7',
           app_key: '4ce2f6ffaefc283787ab3b2c58b95f90',
         },
-      }
+      },
     ).then((response) => {
       console.log(response.body, 'body');
       this.meal = response.body[0]
     });
   },
   methods: {
-  }
+  },
 };
 </script>
 

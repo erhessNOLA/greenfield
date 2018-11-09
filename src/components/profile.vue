@@ -17,7 +17,7 @@
             >
           </div>
           <div class="card-info">
-            <span class="card-title">{{ this.data.profileName }}</span>
+            <span class="card-title">{{ data.profileName }}</span>
           </div>
         </div>
       </div>
@@ -29,21 +29,21 @@
         class="info"
       >
         <p>
-        <span class="title">Email:</span> {{this.data.profileEmail}}</p>
+        <span class="title">Email:</span> {{ data.profileEmail }}</p>
         <p>
-        <span class="title">Current City:</span> {{this.data.profileCity}}</p>
+        <span class="title">Current City:</span> {{ data.profileCity }}</p>
         <p>
-        <span class="title">Date of birth:</span> {{this.data.birthday}}</p>
+        <span class="title">Date of birth:</span> {{ data.birthday }}</p>
         <p>
-        <span class="title">Star Count:</span> {{this.data.profileHR}}</p>
+        <span class="title">Star Count:</span> {{ data.profileHR }}</p>
         <!-- <p>
-            <span class="title">Guest Rating:</span> {{this.data.profileCR}}</p> -->
+          <span class="title">Guest Rating:</span> {{this.data.profileCR}}</p> -->
       </b-col>
       <b-col class="profile-buttons">
         <h4>Notifications:</h4>
         <ul>
           <li
-            v-for="(notification, index) in this.data.notifications"
+            v-for="(notification, index) in data.notifications"
             :key="index"
             :notification="notification"
           >
@@ -67,7 +67,7 @@
         </b-btn>
         <ul v-if="!showEvent">
           <li
-            v-for="event in this.data.events"
+            v-for="event in data.events"
             :key="event.id"
           >
             {{ event.Name }}
@@ -80,13 +80,14 @@
       <eventdiv
         v-if="showEvent"
         :event="event"
-        :name="this.data.profileName"
+        :name="data.profileName"
       />
     </b-row>
   </b-container>
 </template>
 
 <script>
+/* eslint no-console: "off" */
 // Imports
 import eventdiv from './event.vue';
 
@@ -109,10 +110,10 @@ export default {
         notificationData: [],
         events: [],
         image: '',
-      }
+      },
     };
   },
-  mounted: function() {
+  mounted() {
     this.$http.get('/profile')
       .then((response) => {
         console.log(response.body);
@@ -122,15 +123,17 @@ export default {
         this.data.profileHR = response.body.hostRating;
         this.data.profileCR = response.body.contributorRating;
         this.data.birthday = response.body.Birthday;
-        this.data.image = response.body.Image || "http://media.istockphoto.com/photos/businessman-silhouette-as-avatar-or-default-profile-picture-picture-id476085198?k=6&m=476085198&s=612x612&w=0&h=5cDQxXHFzgyz8qYeBQu2gCZq1_TN0z40e_8ayzne0X0=";
+        this.data.image = response.body.Image || 'http://media.istockphoto.com/photos/businessman-silhouette-as-avatar-or-default-profile-picture-picture-id476085198?k=6&m=476085198&s=612x612&w=0&h=5cDQxXHFzgyz8qYeBQu2gCZq1_TN0z40e_8ayzne0X0=';
       }, (err) => {
         this.$router.push('/login');
+        console.log(err);
       });
     this.$http.get('/userevents')
       .then((response) => {
         this.data.events = response.body;
       }, (err) => {
         this.$router.push('/login');
+        console.log(err);
       });
     this.$http.get('/notifications')
       .then((response) => {
@@ -165,13 +168,14 @@ export default {
         eventName: data[0],
         approvedUser: data[1],
       }).then((response) => {
+        console.log(response);
         this.data.notifications.splice(index, 1);
         this.data.notificationData.splice(index, 1);
       }).catch((err) => {
-        console.log('error approving request');
+        console.log('error approving request', err);
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

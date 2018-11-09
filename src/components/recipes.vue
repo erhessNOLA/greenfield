@@ -35,7 +35,7 @@ export default {
   props: ['meals', 'populateList'],
   data() {
     return {
-      mealId: ''
+      mealId: '',
     };
   },
   methods: {
@@ -43,8 +43,8 @@ export default {
       // this.mealId = id.split('#')[1]
       // console.log(this.mealId)
       this.$emit('hideList', [false, id]);
-    }
-  }
+    },
+  },
 };
 </script>
 

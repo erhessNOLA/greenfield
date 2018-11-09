@@ -5,6 +5,8 @@
   />
 </template>
 <script>
+/* eslint no-console: "off" */
+
 import chat from './chatBox.vue';
 import mapMarkerData from './marker.vue';
 
@@ -35,7 +37,7 @@ export default {
       mapName: this.name + "-map",
       markerCoordinates: [{
         latitude: 29.9511,
-        longitude: -90.0715
+        longitude: -90.0715,
       }],
       map: null,
       bounds: null,
@@ -76,7 +78,7 @@ export default {
           '<button id="request" onclick="window.clickFive()">Give 5 Stars</button>' +
           '</div>';
           const infowindow = new google.maps.InfoWindow({
-            content: contentString
+            content: contentString,
           });
           const marker = new google.maps.Marker({
             position,

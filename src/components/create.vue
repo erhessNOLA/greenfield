@@ -87,8 +87,8 @@ export default {
         time: '',
         date: '',
         location: '',
-        meal: ''
-      }
+        meal: '',
+      },
     };
   },
   methods: {
@@ -111,7 +111,7 @@ export default {
             app_id: 'b9d531b7',
             app_key: '4ce2f6ffaefc283787ab3b2c58b95f90',
           },
-        }
+        },
       ).then((response) => {
         this.populateList = true;
         this.meals = response.body.hits;
@@ -124,7 +124,7 @@ export default {
       this.food = change[1].label;
       this.showSelection = change[1];
     },
-  }
+  },
 };
 </script>
 

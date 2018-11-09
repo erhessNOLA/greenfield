@@ -51,11 +51,11 @@
 
 
 <script>
+/* eslint no-console: "off" */
+
 // Imports
 export default {
-  props: [
-    'event', 'name'
-  ],
+  props: ['event', 'name'],
   data() {
     return {
     };
@@ -94,9 +94,9 @@ export default {
     });
 
     socket.on('typing', (data) => {
-      feedback.innerHTML = '<p><em>' + data + ' is typing a message...</em></p>'
+      feedback.innerHTML = '<p><em>' + data + ' is typing a message...</em></p>';
     });
-  }
+  },
 };
 </script>
 
