@@ -139,7 +139,7 @@ app.get('/discover', (req, res) => {
       id: req.headers.cookie.slice(5, 6),
     },
   })
-    .then(user => axios.get(`https://www.eventbriteapi.com/v3/events/search/?sort_by=best&location.address=${user.City}&location.within=25km&categories=110&token=PAC76UQSEK725KLYGSC4`)
+    .then(user => axios.get(`https://www.eventbriteapi.com/v3/events/search/?sort_by=date&location.address=${user.City}&location.within=25km&categories=110&token=PAC76UQSEK725KLYGSC4`)
       .then((response) => {
         const e = response.data.events;
         res.send(e);

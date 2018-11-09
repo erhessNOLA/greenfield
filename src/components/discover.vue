@@ -2,38 +2,53 @@
   <b-container>
     <b-row>
       <div id="discover">
-        <div class="card-header">
-          <h4>{{ eventbrite[0].discoverName }}</h4>
-          {{ 'Starts: ' + eventbrite[0].discoverTime }}
-        </div>
-        <div
-          id="card-element-356590"
-          class="collapse"
+        <ul
+          v-for="brite in eventbrite"
+          id="event-list"
+          :key="brite.id"
         >
-          <div class="card-body row text-center">
-            <div
-              id="event-image-box"
-              class="col-md-6"
+          <div class="card-header">
+            <img
+              class="d-block w-100"
+              alt="pics"
+              :src="brite.eImg"
+              style=""
             >
-              <!-- <img :src="event.logo.url"> -->
-            </div>
-            <div
-              id="event-description-box"
-              class="col-md-6"
+            <h4>{{ brite.eName }}</h4>
+            {{ 'Date: ' + brite.eDate }}
+            <br>
+            {{ 'Starts: ' + brite.eStart }}
+            <br>
+            {{ 'Ends: ' + brite.eEnd }}
+            <br>
+            <br>
+            <h6> Event Description: </h6>
+            {{ brite.eDescript + '...' }}
+            <br>
+            <strong>For more</strong>
+            <a
+              target="_blank"
+              :href="brite.eUrl"
             >
-              <h5> Event description </h5>
-              {{ eventbrite[0].discoverDescript }}
-            </div>
-            <div class="col-md-6 event-links">
-              <button
-                class="btn btn-outline-light"
-                target="_blank"
-              >
-                <h4>Event website</h4>
-              </button>
+              <strong>Click Here</strong>
+            </a>
+          </div>
+          <div
+            id="card-element-356590"
+            class="collapse"
+          >
+            <div class="card-body row text-center">
+              <div class="col-md-6 event-links">
+                <button
+                  class="btn"
+                  target="_blank"
+                >
+                  <h4>Event website</h4>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        </ul>
       </div>
     </b-row>
   </b-container>
@@ -43,7 +58,6 @@
 export default {
   data() {
     return {
-      test: 'testing',
       eventbrite: [],
     };
   },
@@ -52,14 +66,18 @@ export default {
       .then((response) => {
         response.body.forEach((element, i) => {
           const eventObj = {
-            discoverName: response.body[i].name.text,
-            discoverDescript: response.body[i].description.text,
-            discoverUrl: response.body[i].url,
-            discoverTime: response.body[i].start.local.slice(0, -9),
+            eName: response.body[i].name.text,
+            eDescript: response.body[i].description.text.slice(0, 200),
+            eUrl: response.body[i].url,
+            eDate: response.body[i].start.local.slice(0, -9),
+            eStart: response.body[i].start.local.slice(-8),
+            eEnd: response.body[i].end.local.slice(-8),
+            eImg: response.body[i].logo.original.url,
           };
-          this.eventbrite.push(eventObj);
+          if (this.eventbrite.length < 18) {
+            this.eventbrite.push(eventObj);
+          }
         });
-        // console.log(response.body.logo);
       }, (err) => {
         console.log(err, 'error');
       });
