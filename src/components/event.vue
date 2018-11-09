@@ -1,59 +1,43 @@
 <template>
-  <b-container id="Event">
-    <b-row>
-      <b-col>
-        <div
-          id="app"
-          cols="8"
-        >
-          <b-btn
-            id="show-modal"
-            @click="showModal = true"
-          >
-            Event Chat
-          </b-btn>
-          <chat
-            v-if="showModal"
-            :event="event"
-            :name="name"
-            @close="showModal = false"
-          >
-            <h3 slot="header">{{ event.Name }}</h3>
-          </chat>
-        </div>
-        <p>Party Name: {{ event.Name }}</p>
-        <p>Host: {{ event.Host }}</p>
-        <p>Address: {{ event.Address }}</p>
-        <p>Time: {{ event.Time }}</p>
-        <p>Guests:</p>
-        <ul v-if="event.Contributor_List">
-          <li
-            v-for="guest in event.Contributor_List.split(' ')"
-            :key="guest"
-          >
-            {{ guest }}
-          </li>
-        </ul>
-        <p>Recipe: {{ meal.label }}</p>
-        <ul>
-          <li
-            v-for="Ingredient in meal.ingredientLines"
-            :key="Ingredient.id"
-          >
-            {{ Ingredient }}
-          </li>
-        </ul>
-      </b-col>
-      <b-col>
-        <template>
-          <div
-            :id="mapName"
-            class="google-map"
-          />
-        </template>
-      </b-col>
-    </b-row>
-  </b-container>
+    <b-container id="Event">
+        <b-row>
+            <b-col>
+                <div cols='8' id="app">
+                    <b-btn id="show-modal" @click="showModal = true">Event Chat</b-btn>
+                    
+    
+
+                    <chat v-if="showModal" v-bind:event='event' v-bind:name='name' @close="showModal = false">
+                        <h3 slot="header">{{event.Name}}</h3>
+                    </chat>
+                </div>
+                <p>Party Name: {{event.Name}}</p>
+                <p>Host: {{event.Host}}</p>
+                <p>Stars: {{event.Rating}}</p>
+                <p>Address: {{event.Address}}</p>
+                <p>Time: {{event.Time}}</p>
+                <p>Guests:</p>
+                
+    <ul v-if="event.Contributor_List">
+        <li v-for="guest in event.Contributor_List.split(' ')" v-bind:key="guest">{{guest}}</li>
+    </ul>
+
+                <p>Recipe: {{meal.label}}</p>
+                <ul>
+                    <li v-for="Ingredient in meal.ingredientLines" v-bind:key="Ingredient.id">{{Ingredient}}</li>
+                </ul>
+                
+                
+
+            </b-col>
+            <b-col>
+                <template>
+                    <div class="google-map" :id="mapName">
+                    </div>
+                </template>
+            </b-col>
+        </b-row>
+    </b-container>
 </template>
 
 <script>

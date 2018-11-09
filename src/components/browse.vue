@@ -5,27 +5,14 @@
   />
 </template>
 <script>
-/* eslint no-console: "off" */
-
+import axios from 'axios';
 import chat from './chatBox.vue';
 import mapMarkerData from './marker.vue';
 
-window.clickOne = () => {
-  console.log('clicked 1');
-};
-window.clickTwo = () => {
-  console.log('clicked 2');
-};
-window.clickThree = () => {
-  console.log('clicked 3');
-};
-window.clickFour = () => {
-  console.log('clicked 4');
-};
-window.clickFive = () => {
-  console.log('clicked 5');
-};
 export default {
+/* eslint no-alert: "off" */
+/* eslint no-console: "off" */
+
   name: 'google-map',
   components: {
     chat,
@@ -34,7 +21,7 @@ export default {
   props: ['name'],
   data() {
     return {
-      mapName: this.name + "-map",
+      mapName: this.name + '-map',
       markerCoordinates: [{
         latitude: 29.9511,
         longitude: -90.0715,
@@ -55,6 +42,7 @@ export default {
     };
     this.map = new google.maps.Map(element, options);
     const context = this;
+
     this.$http.get('/browse')
       .then((response) => {
         const arr = [];
@@ -64,50 +52,110 @@ export default {
           const eventInfo = element;
           arr.push({ latitude: tempLat, longitude: tempLong, event: eventInfo });
         });
+
         arr.forEach((coord) => {
           const position = new google.maps.LatLng(coord.latitude, coord.longitude);
-          const contentString =
-          '<div>' +
-          '<h2>' + `${coord.event.Name}` + '</h2>' +
-          '<p>' + 'Host: ' + `${coord.event.Host}` + '</p>' +
-          '<p>' + 'Address: ' + `${coord.event.Address}` + '</p>' +
-          '<button id="request" onclick="window.clickOne()">Give 1 Star</button>' +
-          '<button id="request" onclick="window.clickTwo()">Give 2 Stars</button>' +
-          '<button id="request" onclick="window.clickThree()">Give 3 Stars</button>' +
-          '<button id="request" onclick="window.clickFour()">Give 4 Stars</button>' +
-          '<button id="request" onclick="window.clickFive()">Give 5 Stars</button>' +
-          '</div>';
+
           const infowindow = new google.maps.InfoWindow({
-            content: contentString,
+            content: ' ',
           });
           const marker = new google.maps.Marker({
             position,
             map: this.map,
             event: coord.event,
           });
-          marker.addListener('click', function() {
-            console.log('clicked');
+
+          marker.addListener('click', function () {
+            infowindow.setContent('<div>' +
+              '<h2>' + `${coord.event.Name}` + '</h2>' +
+              '<p>' + ' Host: ' + `${coord.event.Host}` + '</p>' +
+              '<p>' + ' Stars: ' + `${coord.event.Rating}` + '</p>' +
+              '<p>' + 'Address: ' + `${coord.event.Address}` + '</p>' +
+              '<button onclick="window.clickOne()">Give 1 Star</button>' + 
+              '<button onclick="window.clickTwo()">Give 2 Stars</button>' +
+              '<button onclick="window.clickThree()">Give 3 Stars</button>' +
+              '<button onclick="window.clickFour()">Give 4 Stars</button>' +
+              '<button onclick="window.clickFive()">Give 5 Stars</button>' +
+            '</div>');
             infowindow.open(this.map, marker);
-            const message = document.getElementById('request');
-            message.addEventListener('click', () => {
-              context.$http.post('/request', {
-                name: marker.event.Name,
-              }).then((response) => {
-                socket.emit('request', {
-                  eventName: marker.event.Name,
+            window.clickOne = () => {
+              axios.post('/giveStar', {
+                stars: 1,
+                eventName: marker.event.Name,
+                hostName: marker.event.Host,
+              })
+                .then((res) => {
+                  console.log(res);
+                })
+                .catch((error) => {
+                  console.log(error);
                 });
-                console.log(response);
-              });
-            });
+              alert(`You gave ${marker.event.Name} 1 Star`);
+            };
+            window.clickTwo = () => {
+              axios.post('/giveStar', {
+                stars: 2,
+                eventName: marker.event.Name,
+                hostName: marker.event.Host,
+              })
+                .then((res) => {
+                  console.log(res);
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
+              alert(`You gave ${marker.event.Name} 2 Stars`);
+            };
+            window.clickThree = () => {
+              axios.post('/giveStar', {
+                stars: 3,
+                eventName: marker.event.Name,
+                hostName: marker.event.Host,
+              })
+                .then((res) => {
+                  console.log(res);
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
+              alert(`You gave ${marker.event.Name} 3 Stars`);
+            };
+            window.clickFour = () => {
+              axios.post('/giveStar', {
+                stars: 4,
+                eventName: marker.event.Name,
+                hostName: marker.event.Host,
+              })
+                .then((res) => {
+                  console.log(res);
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
+              alert(`You gave ${marker.event.Name} 4 Stars`);
+            };
+            window.clickFive = () => {
+              axios.post('/giveStar', {
+                stars: 5,
+                eventName: marker.event.Name,
+                hostName: marker.event.Host,
+              })
+                .then((res) => {
+                  console.log(res);
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
+              alert(`You gave ${marker.event.Name} 5 Stars`);
+            };
           });
           this.markers.push(marker);
           this.map.fitBounds(this.bounds.extend(position));
         });
       });
   },
-  methods: {
-  },
 };
+
 </script>
 <style scoped>
 .google-map {
