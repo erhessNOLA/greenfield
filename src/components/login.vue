@@ -21,13 +21,14 @@
 </template>
 
 <script>
+/* eslint no-console: "off" */
 // Imports
 
 export default {
   data() {
     return {
       styleObject: {
-        color: 'Green'
+        color: 'Green',
       },
       loginData: {
         email: '',
@@ -39,7 +40,7 @@ export default {
     login() {
       this.$http.post('/login', {
         email: this.loginData.email,
-        password: this.loginData.password
+        password: this.loginData.password,
       }, {
         withCredentials: true,
       }).then((data, status, response) => {
@@ -49,7 +50,7 @@ export default {
         this.loginData.password = '';
       });
     },
-  }
+  },
 };
 </script>
 

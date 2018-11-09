@@ -3,15 +3,8 @@
     <b-row>
       <div id="discover">
         <div class="card-header">
-          <a
-            class="card-link"
-            data-toggle="collapse"
-            data-parent="#card-317479"
-            href="#card-element-356590"
-          >
-            <h4>{{ events[0].discoverName }}</h4>
-            <!-- {{ ' start time:' + event.start.local + ' end time:' + event.end.local }} -->
-          </a>
+          <h4>{{ eventbrite[0].discoverName }}</h4>
+          {{ 'Starts: ' + eventbrite[0].discoverTime }}
         </div>
         <div
           id="card-element-356590"
@@ -29,7 +22,7 @@
               class="col-md-6"
             >
               <h5> Event description </h5>
-              <!-- {{ event.description.text }} -->
+              {{ eventbrite[0].discoverDescript }}
             </div>
             <div class="col-md-6 event-links">
               <button
@@ -47,10 +40,12 @@
 </template>
 
 <script>
-const events = [];
 export default {
-  // props: ['events'],
-  computed: {
+  data() {
+    return {
+      test: 'testing',
+      eventbrite: [],
+    };
   },
   mounted() {
     this.$http.get('/discover')
@@ -60,15 +55,15 @@ export default {
             discoverName: response.body[i].name.text,
             discoverDescript: response.body[i].description.text,
             discoverUrl: response.body[i].url,
-            discoverTime: response.body[i].start.local,
-            discoverLogo: response.body[i].logo.url,
+            discoverTime: response.body[i].start.local.slice(0, -9),
           };
-          events.push(eventObj);
+          this.eventbrite.push(eventObj);
         });
+        // console.log(response.body.logo);
       }, (err) => {
         console.log(err, 'error');
       });
-  }
+  },
 };
 
 </script>

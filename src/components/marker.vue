@@ -24,8 +24,7 @@ export default {
     };
   },
   methods: {
-
-  }
+  },
 };
 </script>
 

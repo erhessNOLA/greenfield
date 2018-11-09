@@ -17,7 +17,7 @@
             >
           </div>
           <div class="card-info">
-            <span class="card-title">{{ this.data.profileName }}</span>
+            <span class="card-title">{{ data.profileName }}</span>
           </div>
         </div>
       </div>
@@ -29,13 +29,13 @@
         class="info"
       >
         <p>
-        <span class="title">Email:</span> {{ this.data.profileEmail }}</p>
+        <span class="title">Email:</span> {{ data.profileEmail }}</p>
         <p>
-        <span class="title">Current City:</span> {{ this.data.profileCity }}</p>
+        <span class="title">Current City:</span> {{ data.profileCity }}</p>
         <p>
-        <span class="title">Date of birth:</span> {{ this.data.birthday }}</p>
+        <span class="title">Date of birth:</span> {{ data.birthday }}</p>
         <p>
-        <span class="title">Star Count:</span> {{ this.data.profileHR }}</p>
+        <span class="title">Star Count:</span> {{ data.profileHR }}</p>
         <!-- <p>
           <span class="title">Guest Rating:</span> {{this.data.profileCR}}</p> -->
       </b-col>
@@ -43,7 +43,7 @@
         <h4>Notifications:</h4>
         <ul>
           <li
-            v-for="(notification, index) in this.data.notifications"
+            v-for="(notification, index) in data.notifications"
             :key="index"
             :notification="notification"
           >
@@ -67,7 +67,7 @@
         </b-btn>
         <ul v-if="!showEvent">
           <li
-            v-for="event in this.data.events"
+            v-for="event in data.events"
             :key="event.id"
           >
             {{ event.Name }}
@@ -80,13 +80,14 @@
       <eventdiv
         v-if="showEvent"
         :event="event"
-        :name="this.data.profileName"
+        :name="data.profileName"
       />
     </b-row>
   </b-container>
 </template>
 
 <script>
+/* eslint no-console: "off" */
 // Imports
 import eventdiv from './event.vue';
 
@@ -109,7 +110,7 @@ export default {
         notificationData: [],
         events: [],
         image: '',
-      }
+      },
     };
   },
   mounted() {
@@ -173,8 +174,8 @@ export default {
       }).catch((err) => {
         console.log('error approving request', err);
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -81,8 +81,8 @@ export default {
       markers: [],
       showModal: false,
       data: {
-        name: 'test Page'
-      }
+        name: 'test Page',
+      },
     };
   },
   mounted() {
@@ -106,13 +106,13 @@ export default {
         '</div>';
 
       const infowindow = new google.maps.InfoWindow({
-        content: contentString
+        content: contentString,
       });
 
       const marker = new google.maps.Marker({
         position,
         map: this.map,
-        title: this.event.name
+        title: this.event.name,
       });
       marker.addListener('click', () => {
         infowindow.open(this.map, marker);
@@ -129,14 +129,14 @@ export default {
           app_id: 'b9d531b7',
           app_key: '4ce2f6ffaefc283787ab3b2c58b95f90',
         },
-      }
+      },
     ).then((response) => {
       console.log(response.body, 'body');
       this.meal = response.body[0]
     });
   },
   methods: {
-  }
+  },
 };
 </script>
 
