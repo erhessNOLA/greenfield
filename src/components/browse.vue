@@ -77,6 +77,8 @@ export default {
                       '</div>'
                       ); 
 
+                      infowindow.open(this.map, marker); 
+
                       window.clickOne = () => {
                         axios.post('/giveStar', {
                           stars: 1,
@@ -151,9 +153,6 @@ export default {
                         });
                         alert(`You gave ${marker.event.Name} 5 Stars`);
                       }; 
-
-                      infowindow.open(this.map, marker); 
-
                     });
                     this.markers.push(marker)
                     this.map.fitBounds(this.bounds.extend(position))
