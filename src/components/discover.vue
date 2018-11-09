@@ -33,21 +33,6 @@
               <strong>Click Here</strong>
             </a>
           </div>
-          <div
-            id="card-element-356590"
-            class="collapse"
-          >
-            <div class="card-body row text-center">
-              <div class="col-md-6 event-links">
-                <button
-                  class="btn"
-                  target="_blank"
-                >
-                  <h4>Event website</h4>
-                </button>
-              </div>
-            </div>
-          </div>
         </ul>
       </div>
     </b-row>
