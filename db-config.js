@@ -44,6 +44,9 @@ const User = sequelize.define('user', {
   Image: {
     type: Sequelize.STRING,
   },
+  Event_Count: {
+    type: Sequelize.INTEGER,
+  },
 });
 
 const Event = sequelize.define('event', {
@@ -80,6 +83,9 @@ const Event = sequelize.define('event', {
     type: Sequelize.STRING,
   },
   Zip_Code: {
+    type: Sequelize.INTEGER,
+  },
+  Rating: {
     type: Sequelize.INTEGER,
   },
 });
