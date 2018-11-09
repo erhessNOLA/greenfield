@@ -388,7 +388,13 @@ app.post('/approve', (req, res) => {
 });
 
 app.post('/giveStar', (req, res) => {
-  console.log('worked');
+  console.log('request', req);
+  // const { stars } = req.body;
+  // const { Name } = req.user.dataValues;
+  // Event.update({ Rating: stars }, { where: { Host: Name } }).then((response) => {
+  //   console.log(`${response} updated`);
+  //   res.end();
+  // });
 });
 
 const port = process.env.PORT || 3000;

@@ -13,6 +13,7 @@
                 </div>
                 <p>Party Name: {{event.Name}}</p>
                 <p>Host: {{event.Host}}</p>
+                <p>Stars: {{event.Rating}}</p>
                 <p>Address: {{event.Address}}</p>
                 <p>Time: {{event.Time}}</p>
                 <p>Guests:</p>

@@ -1,4 +1,5 @@
-// var io = require('socket.io')
+const io = require('socket.io');
+
 const socket = io.connect('http://61e83bf3.ngrok.io');
 
 

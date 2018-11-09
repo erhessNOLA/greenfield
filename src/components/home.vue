@@ -1,11 +1,6 @@
 <template>
     <div id="app" >
-        <img src="../assets/splashPage.png" class="full-width-div" alt="">
-  
-
-
-        </div>
-
+        <img src="../assets/splashPage.png" class="full-width-div" alt=""/>
     </div>
 </template>
 

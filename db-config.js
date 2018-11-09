@@ -82,6 +82,9 @@ const Event = sequelize.define('event', {
   Zip_Code: {
     type: Sequelize.INTEGER,
   },
+  Rating: {
+    type: Sequelize.INTEGER,
+  },
 });
 
 const Message = sequelize.define('message', {
