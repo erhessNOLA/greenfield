@@ -80,7 +80,8 @@ export default {
                       window.clickOne = () => {
                          axios.post('/giveStar', {
                           stars: 1,
-                          eventName: marker.event.Name
+                          eventName: marker.event.Name,
+                          hostName: marker.event.Host
                         })
                         .then(function (response) {
                           console.log(response);
@@ -93,7 +94,8 @@ export default {
                       window.clickTwo = () => {
                          axios.post('/giveStar', {
                           stars: 2,
-                          eventName: marker.event.Name
+                          eventName: marker.event.Name,
+                          hostName: marker.event.Host
                         })
                         .then(function (response) {
                           console.log(response);
@@ -106,7 +108,8 @@ export default {
                       window.clickThree = () => {
                          axios.post('/giveStar', {
                           stars: 3,
-                          eventName: marker.event.Name
+                          eventName: marker.event.Name,
+                          hostName: marker.event.Host
                         })
                         .then(function (response) {
                           console.log(response);
@@ -119,7 +122,8 @@ export default {
                       window.clickFour = () => {
                          axios.post('/giveStar', {
                           stars: 4,
-                          eventName: marker.event.Name
+                          eventName: marker.event.Name,
+                          hostName: marker.event.Host
                         })
                         .then(function (response) {
                           console.log(response);
@@ -132,7 +136,8 @@ export default {
                       window.clickFive = () => {
                          axios.post('/giveStar', {
                           stars: 5,
-                          eventName: marker.event.Name
+                          eventName: marker.event.Name,
+                          hostName: marker.event.Host
                         })
                         .then(function (response) {
                           console.log(response);

@@ -151,13 +151,6 @@ app.get('/profile', (req, res) => {
   passport.authenticate('local');
   if (req.user) {
     // find user information from DB
-    // Event.findAll({ where: { Host: req.user.dataValues.Name } }).then((events) => {
-    //   // console.log('eventzero', events[0].dataValues);
-    //   for (let i = 0; i < events.length; i += 1) {
-    //     let eventObj = events[i].dataValues;
-    //     console.log('hello?', eventObj);
-    //   }
-    // });
     User.findOne({ where: { id: req.user.dataValues.id } })
       .then((user) => {
         // avoid sending password
@@ -401,7 +394,17 @@ app.post('/approve', (req, res) => {
 app.post('/giveStar', (req, res) => {
   const { stars } = req.body;
   const { eventName } = req.body;
+  const { hostName } = req.body;
   Event.findOne({ where: { Name: eventName } }).then(event => event.increment('Rating', { by: stars }));
+  Event.findAll({ where: { Host: hostName } }).then((events) => {
+    // console.log('eventzero', events[0].dataValues.Host);
+    let sum = 0;
+    for (let i = 0; i < events.length; i += 1) {
+      sum += events[i].dataValues.Rating;
+    }
+    const avg = sum / events.length;
+    User.update({ Host_Rating: avg }, { where: { Name: hostName } }).then(() => { console.log('updated!'); });
+  });
 });
 
 const port = process.env.PORT || 3000;
