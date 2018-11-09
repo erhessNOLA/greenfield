@@ -7,11 +7,15 @@
 				:show-date="showDate"
 				:time-format-options="{hour: 'numeric', minute:'2-digit'}"
 				:enable-drag-drop="true"
+				:disable-past="disablePast"
+				:disable-future="disableFuture"
 				:show-event-times="showEventTimes"
 				:display-period-uom="displayPeriodUom"
 				:display-period-count="displayPeriodCount"
 				:starting-day-of-week="startingDayOfWeek"
 				:class="themeClasses"
+				:period-changed-callback="periodChanged"
+				@click-date="onClickDay"
 				@click-event="onClickEvent"
 			>
 				<calendar-view-header slot="header" slot-scope="t" :header-props="t.headerProps" @input="setShowDate" />
@@ -42,6 +46,7 @@ export default {
         },
       },
 			showDate: this.thisMonth(1),
+			message: "",
 			startingDayOfWeek: 0,
 			disablePast: false,
 			disableFuture: false,
@@ -50,37 +55,55 @@ export default {
 			showEventTimes: true,
 			newEventTitle: "",
 			newEventStartDate: "",
+			newEventEndDate: "",
+			useDefaultTheme: true,
+			useHolidayTheme: true,
 			events: this.getEvents(),
 		}
 	},
 	computed: {
-		userLocale() {
-			return this.getDefaultBrowserLocale
+    userLocale() {
+      return this.getDefaultBrowserLocale
 		},
 		dayNames() {
-			return this.getFormattedWeekdayNames(this.userLocale, "long", 0)
+      return this.getFormattedWeekdayNames(this.userLocale, "long", 0)
 		},
 		themeClasses() {
-			return {
-				"theme-default": this.useDefaultTheme,
+      return {
+        "theme-default": this.useDefaultTheme,
 				"holiday-us-traditional": this.useHolidayTheme,
 				"holiday-us-official": this.useHolidayTheme,
 			}
 		},
 	},
-	// mounted() {
-	// 	this.newEventStartDate = this.isoYearMonthDay(this.today())
-	// 	this.newEventEndDate = this.isoYearMonthDay(this.today())
-	// },
 
 	methods: {
+    periodChanged(range, eventSource) {
+      // Demo does nothing with this information, just including the method to demonstrate how
+			// you can listen for changes to the displayed range and react to them (by loading events, etc.)
+			console.log(eventSource)
+			console.log(range)
+    },
+    thisMonth(d, h, m) {
+      const t = new Date()
+      return new Date(t.getFullYear(), t.getMonth(), d, h || 0, m || 0)
+    },
+    onClickDay(d) {
+      // this.message = `You clicked: ${d.toLocaleDateString()}`
+    },
+    onClickEvent(e) {
+			this.message = `You clicked: ${e.title}`
+		},
+    setShowDate(d) {
+			// this.message = `Changing calendar view to ${d.toLocaleDateString()}`
+			this.showDate = d
+		},
     monthNames (num) {
       let names = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
       return names[num];
     },
     getEvents() {
       axios.get('/events').then((eventList) => {
-        console.log(eventList.data, 'THIS IS THE EVENT LIST');
         let mappedList = eventList.data.map((event, i) => {
           let newObj = {};
           newObj.id = `e${eventList.data[i].id}`;
@@ -91,21 +114,9 @@ export default {
           newObj.host = eventList.data[i].Host;
           return (newObj);
         });
-        console.log(mappedList, 'mappedList');
         this.events = mappedList;
       })
     },
-		thisMonth(d, h, m) {
-      const t = new Date()
-			return new Date(t.getFullYear(), t.getMonth(), d, h || 0, m || 0)
-		},
-		onClickEvent(e) {
-			this.message = `You clicked: ${e.title}`
-		},
-		setShowDate(d) {
-			this.message = `Changing calendar view to ${d.toLocaleDateString()}`
-			this.showDate = d
-		},
 	},
 }
 </script>
