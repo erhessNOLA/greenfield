@@ -20,21 +20,11 @@
 	</div>
 </template>
 <script>
-// For testing against the published version
-import {
-	CalendarView,
-	CalendarViewHeader,
-	CalendarMathMixin,
-} from "vue-simple-calendar"
 
-// For live testing while making changes to the component, assumes repo pulled to sister folder
-/*
-import CalendarView from "../../vue-simple-calendar/src/components/CalendarView.vue"
-import CalendarViewHeader from "../../vue-simple-calendar/src/components/CalendarViewHeader.vue"
-import CalendarMathMixin from "../../vue-simple-calendar/src/components/CalendarMathMixin.js"
-require("../../vue-simple-calendar/static/css/default.css")
-require("../../vue-simple-calendar/static/css/holidays-us.css")
-*/
+import CalendarView from "vue-simple-calendar/src/components/CalendarView.vue"
+import CalendarViewHeader from "vue-simple-calendar/src/components/CalendarViewHeader.vue"
+// import CalendarMathMixin from "vue-simple-calendar/src/components/CalendarMathMixin.js"
+
 import axios from 'axios';
 export default {
 	name: "App",
@@ -42,7 +32,7 @@ export default {
 		CalendarView,
 		CalendarViewHeader,
 	},
-	mixins: [CalendarMathMixin],
+	// mixins: [CalendarMathMixin],
 	data() {
 		return {
       /* Show the current month, and give it some fake events to show */
@@ -78,10 +68,10 @@ export default {
 			}
 		},
 	},
-	mounted() {
-		this.newEventStartDate = this.isoYearMonthDay(this.today())
-		this.newEventEndDate = this.isoYearMonthDay(this.today())
-	},
+	// mounted() {
+	// 	this.newEventStartDate = this.isoYearMonthDay(this.today())
+	// 	this.newEventEndDate = this.isoYearMonthDay(this.today())
+	// },
 
 	methods: {
     monthNames (num) {
@@ -96,7 +86,9 @@ export default {
           newObj.id = `e${eventList.data[i].id}`;
           newObj.startDate = eventList.data[i].Date;
           newObj.title = eventList.data[i].Name;
-          // newObj.host = eventList.data[i].Host;
+          newObj.address = eventList.data[i].Address;
+          newObj.time = eventList.data[i].Time;
+          newObj.host = eventList.data[i].Host;
           return (newObj);
         });
         console.log(mappedList, 'mappedList');
