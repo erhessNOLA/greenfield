@@ -17,6 +17,8 @@
 				:period-changed-callback="periodChanged"
 				@click-date="onClickDay"
 				@click-event="onClickEvent"
+				class="cv-event"
+				@click.stop="onClickEvent(e)"
 			>
 				<calendar-view-header slot="header" slot-scope="t" :header-props="t.headerProps" @input="setShowDate" />
 			</calendar-view>
@@ -93,6 +95,8 @@ export default {
     },
     onClickEvent(e) {
 			this.message = `You clicked: ${e.title}`
+			console.log(e);
+			alert("Title: " + e.originalEvent.title + "\nDate: " + e.originalEvent.date + "\nTime: " + e.originalEvent.time + "\nAddress: " + e.originalEvent.address)
 		},
     setShowDate(d) {
 			// this.message = `Changing calendar view to ${d.toLocaleDateString()}`
