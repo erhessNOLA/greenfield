@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const Sequelize = require('sequelize');
 const passwordHash = require('password-hash');
 
@@ -104,7 +105,7 @@ const Message = sequelize.define('message', {
 
 sequelize
   .sync({ force: false })
-  .then((err) => {
+  .then((res) => {
     console.log('It worked!');
   }, (err) => {
     console.log('An error occurred while creating the table:', err);

@@ -15,8 +15,8 @@ Vue.use(BootstrapVue);
 
 export default {
   components: {
-    'navBar': navBar,
-    'app-footer': footer
+    navBar,
+    'app-footer': footer,
   },
   data() {
     return {
