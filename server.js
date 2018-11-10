@@ -419,15 +419,15 @@ app.post('/giveStar', (req, res) => {
   const { stars } = req.body;
   const { eventName } = req.body;
   const { hostName } = req.body;
+  // add event rating count to schema and use that to average the star ratings per event
   Event.findOne({ where: { Name: eventName } }).then(event => event.increment('Rating', { by: stars }));
   Event.findAll({ where: { Host: hostName } }).then((events) => {
-    // console.log('eventzero', events[0].dataValues.Host);
     let sum = 0;
     for (let i = 0; i < events.length; i += 1) {
       sum += events[i].dataValues.Rating;
     }
     const avg = sum / events.length;
-    User.update({ Host_Rating: avg }, { where: { Name: hostName } }).then(() => { console.log('updated!'); });
+    User.update({ Host_Rating: avg }, { where: { Name: hostName } }).then(() => { console.log('updated average rating'); });
   });
 });
 
