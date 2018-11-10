@@ -19,7 +19,7 @@
 				class="cv-event"
 				@click.stop="onClickEvent(e)"
 			>
-				<!-- <calendar-view-header slot="header" slot-scope="t" :header-props="t.headerProps" @input="setShowDate" /> -->
+				<calendar-view-header slot="header" slot-scope="t" :header-props="t.headerProps" @input="setShowDate" />
 			</calendar-view>
 		</div>
 	</div>
