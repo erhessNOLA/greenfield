@@ -1,6 +1,5 @@
 <template>
 	<div id="calendar">
-
 		<div class="calendar-parent">
 			<calendar-view
 				:events="events"
@@ -20,25 +19,25 @@
 				class="cv-event"
 				@click.stop="onClickEvent(e)"
 			>
-				<calendar-view-header slot="header" slot-scope="t" :header-props="t.headerProps" @input="setShowDate" />
+				<!-- <calendar-view-header slot="header" slot-scope="t" :header-props="t.headerProps" @input="setShowDate" /> -->
 			</calendar-view>
 		</div>
 	</div>
 </template>
 <script>
 
-import CalendarView from "vue-simple-calendar/src/components/CalendarView.vue"
-import CalendarViewHeader from "vue-simple-calendar/src/components/CalendarViewHeader.vue"
-// import CalendarMathMixin from "vue-simple-calendar/src/components/CalendarMathMixin.js"
+import CalendarView from "./CalendarView.vue"
+import CalendarViewHeader from "./CalendarViewHeader.vue"
+import CalendarMathMixin from "vue-simple-calendar/src/components/CalendarMathMixin.js"
 
 import axios from 'axios';
 export default {
-	name: "App",
+	name: "Calendar",
 	components: {
 		CalendarView,
 		CalendarViewHeader,
 	},
-	// mixins: [CalendarMathMixin],
+	mixins: [CalendarMathMixin],
 	data() {
 		return {
       /* Show the current month, and give it some fake events to show */
@@ -73,8 +72,6 @@ export default {
 		themeClasses() {
       return {
         "theme-default": this.useDefaultTheme,
-				"holiday-us-traditional": this.useHolidayTheme,
-				"holiday-us-official": this.useHolidayTheme,
 			}
 		},
 	},
@@ -134,15 +131,13 @@ body {
 }
 
 #calendar {
-	display: flex;
-	flex-direction: row;
-	font-family: Calibri, sans-serif;
-	width: 95vw;
-	min-width: 30rem;
-	max-width: 50rem;
-	min-height: 40rem;
-	margin-left: auto;
-	margin-right: auto;
+	font-family: 'Avenir', Helvetica, Arial, sans-serif;
+		color: #2c3e50;
+		height: 67vh;
+		width: 90vw;
+		margin-left: auto;
+		margin-right: auto;
+
 }
 
 .calendar-parent {
