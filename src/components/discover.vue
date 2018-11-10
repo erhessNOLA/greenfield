@@ -9,10 +9,10 @@
         >
           <div class="card-header">
             <img
-              class="d-block w-100"
+              class="d-block"
               alt="pics"
               :src="brite.eImg"
-              style=""
+              style="max-width: 80%; margin-left: auto; margin-right: auto;"
             >
             <h4>{{ brite.eName }}</h4>
             {{ 'Date: ' + brite.eDate }}
@@ -32,21 +32,6 @@
             >
               <strong>Click Here</strong>
             </a>
-          </div>
-          <div
-            id="card-element-356590"
-            class="collapse"
-          >
-            <div class="card-body row text-center">
-              <div class="col-md-6 event-links">
-                <button
-                  class="btn"
-                  target="_blank"
-                >
-                  <h4>Event website</h4>
-                </button>
-              </div>
-            </div>
           </div>
         </ul>
       </div>
