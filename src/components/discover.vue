@@ -9,10 +9,10 @@
         >
           <div class="card-header">
             <img
-              class="d-block w-100"
+              class="d-block"
               alt="pics"
               :src="brite.eImg"
-              style=""
+              style="max-width: 80%; margin-left: auto; margin-right: auto;"
             >
             <h4>{{ brite.eName }}</h4>
             {{ 'Date: ' + brite.eDate }}
