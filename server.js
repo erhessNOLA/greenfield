@@ -419,7 +419,6 @@ app.post('/giveStar', (req, res) => {
   const { stars } = req.body;
   const { eventName } = req.body;
   const { hostName } = req.body;
-  // add event rating count to schema and use that to average the star ratings per event
   Event.findOne({ where: { Name: eventName } }).then(event => event.increment('Rating', { by: stars }));
   Event.findAll({ where: { Host: hostName } }).then((events) => {
     let sum = 0;
