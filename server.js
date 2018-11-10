@@ -1,3 +1,5 @@
+/* eslint no-console: "off" */
+
 require('dotenv').config();
 const path = require('path');
 const axios = require('axios');
@@ -392,11 +394,17 @@ app.post('/approve', (req, res) => {
       User.findOne({ where: { Name: req.user.dataValues.Name } }).then((user) => {
         notifications = user.Notifications.replace(eventPair, '');
       }).then(() => {
-        User.update({ Notifications: notifications }, { where: { Name: req.user.dataValues.Name } });
+        User.update(
+          { Notifications: notifications },
+          { where: { Name: req.user.dataValues.Name } },
+        );
       });
     })
     .then(() => {
-      Event.update({ Contributor_List: currentContributors }, { where: { Name: req.body.eventName } }).then((affectedRows) => {
+      Event.update(
+        { Contributor_List: currentContributors },
+        { where: { Name: req.body.eventName } },
+      ).then((affectedRows) => {
         console.log('contributor list updated: ', affectedRows);
         res.status(201).send('request approved');
       });
