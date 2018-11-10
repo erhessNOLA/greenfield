@@ -4,6 +4,7 @@
 			<calendar-view
 				:events="events"
 				:show-date="showDate"
+				@show-date-change="setShowDate"
 				:time-format-options="{hour: 'numeric', minute:'2-digit'}"
 				:enable-drag-drop="true"
 				:disable-past="disablePast"
@@ -43,7 +44,11 @@ export default {
       /* Show the current month, and give it some fake events to show */
       t: {
         headerProps: {
-          periodLabel: this.monthNames(new Date().getMonth()) + ' ' + new Date().getFullYear(),
+					periodLabel: this.monthNames(new Date().getMonth()) + ' ' + new Date().getFullYear(),
+					// previousYear: new Date(),
+					// previousMonth: thePreviousMonth,
+					// nextYear: new Date(),
+					// nextMonth: new Date(),
         },
       },
 			showDate: this.thisMonth(1),
@@ -77,6 +82,18 @@ export default {
 	},
 
 	methods: {
+		theNextYear() {
+
+		},
+		theNextMonth() {
+
+		},
+		thePreviousYear() {
+
+		},
+		thePreviousMonth() {
+			this.showDate = this.thisMonth(-1);
+		},
     periodChanged(range, eventSource) {
       // Demo does nothing with this information, just including the method to demonstrate how
 			// you can listen for changes to the displayed range and react to them (by loading events, etc.)
@@ -91,13 +108,23 @@ export default {
       // this.message = `You clicked: ${d.toLocaleDateString()}`
     },
     onClickEvent(e) {
-			this.message = `You clicked: ${e.title}`
 			console.log(e);
 			alert("Title: " + e.originalEvent.title + "\nDate: " + e.originalEvent.date + "\nTime: " + e.originalEvent.time + "\nAddress: " + e.originalEvent.address)
 		},
     setShowDate(d) {
-			// this.message = `Changing calendar view to ${d.toLocaleDateString()}`
-			this.showDate = d
+			// FIGURE OUT WHY D IS UNDEFINED HERE!!!!!!!!!!!!!!!!!!
+			console.log(this, 'THIS IS THIS')
+			console.log(d, 'THIS IS D')
+			// this works to go to the previous month
+			// this.showDate = new Date().setMonth(new Date().getMonth() - 1);
+			// this changes the calendar no matter which button u press
+			this.showDate = this.thisMonth(-1);
+			console.log(this.showDate);
+			// if class is ____ , call function corresponding to that
+			let narrowDown = document.getElementsByClassName('cv-header-nav');
+			if (d === narrowDown[0].children[0]){
+				console.log('HELLO')
+			}
 		},
     monthNames (num) {
       let names = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
