@@ -6,12 +6,8 @@ import signup from './components/signup.vue';
 import home from './components/home.vue';
 import browse from './components/browse.vue';
 import chat from './components/chatBox.vue';
-<<<<<<< HEAD
 import calendar from './components/calendar.vue';
-
-=======
 import discover from './components/discover.vue';
->>>>>>> b1911da30b5587a9a910caa9313797c184521e16
 
 export default [
   { path: '/', component: home },

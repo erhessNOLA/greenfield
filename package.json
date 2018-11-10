@@ -10,10 +10,7 @@
   },
   "dependencies": {
     "@google/maps": "^0.4.6",
-<<<<<<< HEAD
-=======
     "@vue/eslint-config-airbnb": "^4.0.0",
->>>>>>> b1911da30b5587a9a910caa9313797c184521e16
     "axios": "^0.18.0",
     "body-parser": "^1.18.1",
     "bootstrap": "^3.3.7",
