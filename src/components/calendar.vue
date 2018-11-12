@@ -95,13 +95,6 @@ export default {
 			alert("Title: " + e.originalEvent.title + "\nDate: " + e.originalEvent.date + "\nTime: " + e.originalEvent.time + "\nAddress: " + e.originalEvent.address)
 		},
     setShowDate(d) {
-			// // this.showDate = new Date().setMonth(new Date().getMonth() - 1);
-			// this.showDate = this.thisMonth(-1);
-			// console.log(this.showDate);
-			// if class is ____ , call function corresponding to that
-			// this.$on('headerProps.nextYear', () => {
-			// 	this.showDate = this.thisMonth(+1);
-			// })
 			if (d === 'previousPeriod') {
 				this.showDate = new Date(2018, 10);
 				this.t.headerProps.periodLabel = "November 2018";
@@ -109,6 +102,14 @@ export default {
 			if (d === 'nextPeriod') {
 				this.t.headerProps.periodLabel = "December 2018";
 				this.showDate = new Date(2018, 11);
+			}
+			if (d === 'previousYear') {
+				this.t.headerProps.periodLabel = "November 2017";
+				this.showDate = new Date(2017, 11);
+			}
+			if (d === 'nextYear') {
+				this.t.headerProps.periodLabel = "November 2019";
+				this.showDate = new Date(2019, 11);
 			}
 		},
     monthNames (num) {
