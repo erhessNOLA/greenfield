@@ -4,7 +4,6 @@
 			<calendar-view
 				:events="events"
 				:show-date="showDate"
-				@show-date-change="setShowDate"
 				:time-format-options="{hour: 'numeric', minute:'2-digit'}"
 				:enable-drag-drop="true"
 				:disable-past="disablePast"
@@ -27,8 +26,8 @@
 </template>
 <script>
 
-import CalendarView from "./CalendarView.vue"
-import CalendarViewHeader from "./CalendarViewHeader.vue"
+import CalendarView from "./calendarview.vue"
+import CalendarViewHeader from "./calendarviewheader.vue"
 import CalendarMathMixin from "vue-simple-calendar/src/components/CalendarMathMixin.js"
 
 import axios from 'axios';
@@ -83,13 +82,13 @@ export default {
 
 	methods: {
 		theNextYear() {
-
+			this.showDate = this.getFullYear(+1);
 		},
 		theNextMonth() {
-
+			this.showDate = this.getMonth(+1);
 		},
 		thePreviousYear() {
-
+			this.showDate = this.getFullYear(-1);
 		},
 		thePreviousMonth() {
 			this.showDate = this.thisMonth(-1);
@@ -113,18 +112,17 @@ export default {
 		},
     setShowDate(d) {
 			// FIGURE OUT WHY D IS UNDEFINED HERE!!!!!!!!!!!!!!!!!!
-			console.log(this, 'THIS IS THIS')
-			console.log(d, 'THIS IS D')
-			// this works to go to the previous month
-			// this.showDate = new Date().setMonth(new Date().getMonth() - 1);
-			// this changes the calendar no matter which button u press
-			this.showDate = this.thisMonth(-1);
-			console.log(this.showDate);
+			console.log(d, 'D FROM THE CALENDAR')
+			// console.log(this, 'THIS IS THIS')
+			// console.log(d, 'THIS IS D')
+			// // this.showDate = new Date().setMonth(new Date().getMonth() - 1);
+			// this.showDate = this.thisMonth(-1);
+			// console.log(this.showDate);
 			// if class is ____ , call function corresponding to that
-			let narrowDown = document.getElementsByClassName('cv-header-nav');
-			if (d === narrowDown[0].children[0]){
-				console.log('HELLO')
-			}
+			// this.$on('headerProps.nextYear', () => {
+			// 	this.showDate = this.thisMonth(+1);
+			// 	console.log('HELLAAAAAA')
+			// })
 		},
     monthNames (num) {
       let names = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];

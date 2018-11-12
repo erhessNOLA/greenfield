@@ -1,10 +1,10 @@
 <template>
 	<div class="cv-header">
 		<div class="cv-header-nav">
-			<button :enabled="!headerProps.previousYear" class="previousYear" @click="onInput(headerProps.previousYear)">&lt;&lt;</button>
-			<button :enabled="!headerProps.previousPeriod" class="previousPeriod" @click="onInput(headerProps.previousPeriod)">&lt;</button>
-			<button :enabled="!headerProps.nextPeriod" class="nextPeriod" @click="onInput(headerProps.nextPeriod)">&gt;</button>
-			<button :enabled="!headerProps.nextPeriod" class="nextYear" @click="onInput(headerProps.nextYear)">&gt;&gt;</button>
+			<button :enabled="!headerProps.previousYear" class="previousYear" @click="onInput('previousYear')">&lt;&lt;</button>
+			<button :enabled="!headerProps.previousPeriod" class="previousPeriod" @click="onInput('previousPeriod')">&lt;</button>
+			<button :enabled="!headerProps.nextPeriod" class="nextPeriod" @click="onInput('nextPeriod')">&gt;</button>
+			<button :enabled="!headerProps.nextPeriod" class="nextYear" @click="onInput('nextYear')">&gt;&gt;</button>
 			<button class="currentPeriod" @click="onInput(headerProps.currentPeriod)">Today</button>
 		</div>
 		<div class="periodLabel">
