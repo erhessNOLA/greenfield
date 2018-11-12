@@ -14,7 +14,6 @@
 				:starting-day-of-week="startingDayOfWeek"
 				:class="themeClasses"
 				:period-changed-callback="periodChanged"
-				@click-date="onClickDay"
 				@click-event="onClickEvent"
 				class="cv-event"
 				@click.stop="onClickEvent(e)"
@@ -44,10 +43,6 @@ export default {
       t: {
         headerProps: {
 					periodLabel: this.monthNames(new Date().getMonth()) + ' ' + new Date().getFullYear(),
-					// previousYear: new Date(),
-					// previousMonth: thePreviousMonth,
-					// nextYear: new Date(),
-					// nextMonth: new Date(),
         },
       },
 			showDate: this.thisMonth(1),
@@ -81,21 +76,13 @@ export default {
 	},
 
 	methods: {
-		theNextYear() {
-			this.showDate = this.getFullYear(+1);
-		},
-		theNextMonth() {
-			this.showDate = this.getMonth(+1);
-		},
-		thePreviousYear() {
-			this.showDate = this.getFullYear(-1);
-		},
-		thePreviousMonth() {
-			this.showDate = this.thisMonth(-1);
-		},
     periodChanged(range, eventSource) {
       // Demo does nothing with this information, just including the method to demonstrate how
 			// you can listen for changes to the displayed range and react to them (by loading events, etc.)
+			// range.displayFirstDate = new Date();
+			// range.displayLastDate = "Sun Dec 02 2018 00:00:00 GMT-0600";
+			// range.periodEnd = "Fri Nov 30 2018 00:00:00 GMT-0600";
+			// range.periodStart = "Thu Nov 01 2018 00:00:00 GMT-0500";
 			console.log(eventSource)
 			console.log(range)
     },
@@ -103,26 +90,24 @@ export default {
       const t = new Date()
       return new Date(t.getFullYear(), t.getMonth(), d, h || 0, m || 0)
     },
-    onClickDay(d) {
-      // this.message = `You clicked: ${d.toLocaleDateString()}`
-    },
     onClickEvent(e) {
 			console.log(e);
 			alert("Title: " + e.originalEvent.title + "\nDate: " + e.originalEvent.date + "\nTime: " + e.originalEvent.time + "\nAddress: " + e.originalEvent.address)
 		},
     setShowDate(d) {
-			// FIGURE OUT WHY D IS UNDEFINED HERE!!!!!!!!!!!!!!!!!!
-			console.log(d, 'D FROM THE CALENDAR')
-			// console.log(this, 'THIS IS THIS')
-			// console.log(d, 'THIS IS D')
 			// // this.showDate = new Date().setMonth(new Date().getMonth() - 1);
 			// this.showDate = this.thisMonth(-1);
 			// console.log(this.showDate);
 			// if class is ____ , call function corresponding to that
 			// this.$on('headerProps.nextYear', () => {
 			// 	this.showDate = this.thisMonth(+1);
-			// 	console.log('HELLAAAAAA')
 			// })
+			if (d === 'previousPeriod') {
+				this.showDate = new Date(2018, 10);
+			}
+			if (d === 'nextPeriod') {
+				this.showDate = new Date(2018, 11);
+			}
 		},
     monthNames (num) {
       let names = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];

@@ -103,7 +103,7 @@ export default {
 		eventTop: { type: String, default: "1.4em" },
 		eventContentHeight: { type: String, default: "1.4em" },
 		eventBorderHeight: { type: String, default: "2px" },
-		periodChangedCallback: { type: Function, default: undefined },
+		periodChangedCallback: { type: Function, default: true },
 	},
 
 	data: () => ({
