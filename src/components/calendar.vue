@@ -104,8 +104,10 @@ export default {
 			// })
 			if (d === 'previousPeriod') {
 				this.showDate = new Date(2018, 10);
+				this.t.headerProps.periodLabel = "November 2018";
 			}
 			if (d === 'nextPeriod') {
+				this.t.headerProps.periodLabel = "December 2018";
 				this.showDate = new Date(2018, 11);
 			}
 		},
